@@ -52,6 +52,7 @@
     "tailwindcss": "latest",
     "tsx": "latest",
     "typescript": "latest",
+    "vercel": "^65.16.0",
     "vitest": "latest"
   }
 }
