@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROOFCHAIN.AI — The AI That Detects Fake Progress</title>
+  <meta name="description" content="Autonomous AI software project intelligence, claim verification, diagnosis, and recovery platform.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgDark: '#050810',
+            bgSec: '#0b1120',
+            bgElev: '#10192b',
+            accentEmerald: '#00e5a8',
+            accentCyan: '#36cfff',
+            accentViolet: '#8667ff',
+            accentRuby: '#ff5263',
+            accentAmber: '#ffb547',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #050810;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #00e5a8 0%, #36cfff 50%, #8667ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-panel {
+      background: rgba(16, 25, 43, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .laser-line {
+      animation: laserSweep 3s ease-in-out infinite alternate;
+    }
+    @keyframes laserSweep {
+      0% { top: 0%; opacity: 0.3; }
+      50% { opacity: 0.9; }
+      100% { top: 100%; opacity: 0.3; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-accentEmerald selection:text-black">
+
+  <!-- Navigation -->
+  <header class="sticky top-0 z-50 w-full glass-panel border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-accentEmerald via-accentCyan to-accentViolet">
+          <div class="w-full h-full bg-bgDark rounded-[10px] flex items-center justify-center font-bold text-accentEmerald text-sm">
+            PC
+          </div>
+        </div>
+        <div class="font-extrabold tracking-tight text-white flex items-center gap-1.5">
+          <span>PROOFCHAIN</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-accentEmerald/20 text-accentEmerald font-mono font-bold border border-accentEmerald/30">
+            .AI
+          </span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-accentEmerald animate-pulse"></span>
+          <span class="text-slate-300">Live Production Preview</span>
+        </div>
+        <a href="https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-bold transition-all flex items-center gap-2">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <a href="https://vercel.com/new/clone?repository-url=https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black text-xs font-bold shadow-lg hover:opacity-90 transition-opacity">
+          Deploy to Vercel
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with 3D Canvas -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 px-6">
+    <!-- WebGL Canvas -->
+    <div id="canvas-container" class="absolute inset-0 z-0 pointer-events-none opacity-80"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accentEmerald/10 border border-accentEmerald/30 text-accentEmerald text-xs font-mono">
+        <span class="w-2 h-2 rounded-full bg-accentEmerald animate-ping"></span>
+        AUTONOMOUS SOFTWARE VERIFICATION PLATFORM
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-tight">
+        YOUR PROJECT CLAIMS IT WORKS.<br />
+        <span class="text-gradient">WE FIND THE TRUTH.</span>
+      </h1>
+
+      <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        The autonomous AI intelligence platform that investigates software claims, uncovers hidden failures, applies verified patches in isolated sandboxes, and certifies empirical release readiness.
+      </p>
+
+      <div class="flex items-center justify-center gap-4 flex-wrap pt-4">
+        <a href="https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-sm shadow-xl shadow-accentEmerald/20 hover:scale-105 transition-transform">
+          Explore Repository &amp; Code
+        </a>
+        <a href="#interactive-demo" class="px-6 py-3.5 rounded-xl glass-panel border border-white/10 text-white font-bold text-sm hover:border-white/30 transition-all">
+          Interactive Audit Walkthrough ↓
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Laser Scanning Verification Scene -->
+  <section class="py-20 px-6 max-w-7xl mx-auto w-full">
+    <div class="text-center space-y-3 mb-12">
+      <span class="text-xs font-mono text-accentCyan tracking-widest uppercase">Stage 01 — Claim Extraction</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Laser Scanning Assertion Verification</h2>
+      <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+        Every sprint claim is extracted into an atomic, testable hypothesis and matched against ground-truth evidence.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1: Verified -->
+      <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentEmerald relative overflow-hidden">
+        <div class="flex items-center justify-between text-xs font-mono mb-3">
+          <span class="text-accentEmerald font-bold">STATUS: VERIFIED</span>
+          <span class="text-slate-500">HTTP 200 OK</span>
+        </div>
+        <h3 class="font-bold text-white text-base mb-2">Merchant Authentication Session</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+          "Merchant login endpoint maintains active auth tokens and rejects malicious headers without session leaking."
+        </p>
+        <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentEmerald">
+          ✓ Verified via isolated test check (3ms)
+        </div>
+      </div>
+
+      <!-- Card 2: Contradicted -->
+      <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentRuby relative overflow-hidden">
+        <div class="laser-line absolute left-0 right-0 h-0.5 bg-accentRuby shadow-[0_0_8px_#ff5263] z-10 pointer-events-none"></div>
+        <div class="flex items-center justify-between text-xs font-mono mb-3">
+          <span class="text-accentRuby font-bold">STATUS: CONTRADICTED</span>
+          <span class="text-slate-500">HTTP 500 ERROR</span>
+        </div>
+        <h3 class="font-bold text-white text-base mb-2">Payment Processing Gateway</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+          "Payment processing API is fully functional and production-ready."
+        </p>
+        <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentRuby">
+          ✗ Target returned HTTP 500 (Gateway Fault)
+        </div>
+      </div>
+
+      <!-- Card 3: Unsupported -->
+      <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentAmber relative overflow-hidden">
+        <div class="flex items-center justify-between text-xs font-mono mb-3">
+          <span class="text-accentAmber font-bold">STATUS: UNSUPPORTED</span>
+          <span class="text-slate-500">NO EVIDENCE</span>
+        </div>
+        <h3 class="font-bold text-white text-base mb-2">Mobile Responsiveness Suite</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+          "Merchant portal layout seamlessly supports all mobile devices and touch interactions."
+        </p>
+        <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentAmber">
+          ⚠ Zero viewport audit traces found in dossier
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Demo Simulator -->
+  <section id="interactive-demo" class="py-20 px-6 max-w-5xl mx-auto w-full">
+    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10 shadow-2xl space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+        <div>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-accentCyan">Autonomous Remediation Workflow</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Recovery Studio: Patch &amp; Retest</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-accentEmerald/10 text-accentEmerald border border-accentEmerald/30 text-xs font-mono font-bold">
+          Empirical Zero-Hallucination
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+        <div class="p-5 rounded-2xl bg-black/60 border border-accentRuby/30 space-y-2">
+          <div class="text-accentRuby font-bold flex items-center justify-between">
+            <span>BEFORE PATCH (Fixture Bug)</span>
+            <span class="text-[10px] bg-accentRuby/20 px-2 py-0.5 rounded">HTTP 404</span>
+          </div>
+          <div class="text-slate-400 text-[11px]">Destination: /fixture/broken-docs-404</div>
+          <div class="p-3 rounded-lg bg-black/40 text-slate-300 font-mono text-[11px] overflow-x-auto">
+            &lt;a id="nav-docs" href="/fixture/broken-docs-404"&gt;API Docs&lt;/a&gt;
+          </div>
+          <div class="text-accentRuby text-[11px] font-semibold">✗ Result: Broken route detected by crawler</div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-black/60 border border-accentEmerald/30 space-y-2">
+          <div class="text-accentEmerald font-bold flex items-center justify-between">
+            <span>AFTER PATCH &amp; RETEST</span>
+            <span class="text-[10px] bg-accentEmerald/20 px-2 py-0.5 rounded">HTTP 200 OK</span>
+          </div>
+          <div class="text-slate-400 text-[11px]">Destination: /fixture/docs-valid</div>
+          <div class="p-3 rounded-lg bg-black/40 text-slate-300 font-mono text-[11px] overflow-x-auto">
+            &lt;a id="nav-docs" href="/fixture/docs-valid"&gt;API Docs&lt;/a&gt;
+          </div>
+          <div class="text-accentEmerald text-[11px] font-semibold">✓ Result: Route verified, claim moved to VERIFIED</div>
+        </div>
+      </div>
+
+      <!-- Action Card -->
+      <div class="p-6 rounded-2xl glass-card flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="text-sm font-bold text-white">Ready to deploy your own instance?</div>
+          <div class="text-xs text-slate-400">Deploy full-stack Next.js app to Vercel with all API routes.</div>
+        </div>
+        <a href="https://vercel.com/new/clone?repository-url=https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-xs shadow-lg hover:opacity-90 transition-opacity">
+          Deploy to Vercel Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-white/10 py-10 px-6 text-center text-xs text-slate-500 font-mono space-y-2">
+    <div>PROOFCHAIN.AI — "Never trust a project completion claim without verifiable evidence."</div>
+    <div>MIT License • Built with Next.js, Google Gemini, and Three.js</div>
+  </footer>
+
+  <!-- Three.js 3D Proof Core Background -->
+  <script>
+    (function initProofCore() {
+      const container = document.getElementById('canvas-container');
+      if (!container || typeof THREE === 'undefined') return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 7;
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      // Core Geometric Objects
+      const coreGroup = new THREE.Group();
+      scene.add(coreGroup);
+
+      // 1. Inner Metallic Core
+      const innerGeo = new THREE.IcosahedronGeometry(1.6, 1);
+      const innerMat = new THREE.MeshStandardMaterial({
+        color: 0x050810,
+        metalness: 0.9,
+        roughness: 0.2,
+        wireframe: true,
+      });
+      const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+      coreGroup.add(innerMesh);
+
+      // 2. Orbital Rings
+      const createRing = (radius, color, rotX, rotY) => {
+        const ringGeo = new THREE.TorusGeometry(radius, 0.02, 16, 100);
+        const ringMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.6 });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.rotation.x = rotX;
+        ring.rotation.y = rotY;
+        return ring;
+      };
+
+      const ring1 = createRing(2.4, 0x00e5a8, Math.PI / 3, 0);
+      const ring2 = createRing(2.8, 0x36cfff, -Math.PI / 4, Math.PI / 6);
+      const ring3 = createRing(3.2, 0x8667ff, Math.PI / 2, Math.PI / 4);
+      coreGroup.add(ring1);
+      coreGroup.add(ring2);
+      coreGroup.add(ring3);
+
+      // 3. Orbiting Nodes
+      const nodeGeo = new THREE.SphereGeometry(0.08, 16, 16);
+      const nodeMat = new THREE.MeshBasicMaterial({ color: 0x00e5a8 });
+      const nodes = [];
+      for (let i = 0; i < 8; i++) {
+        const node = new THREE.Mesh(nodeGeo, nodeMat);
+        coreGroup.add(node);
+        nodes.push({ mesh: node, angle: (i / 8) * Math.PI * 2, radius: 2.4 + (i % 3) * 0.4 });
+      }
+
+      // 4. Particle Field
+      const particleGeo = new THREE.BufferGeometry();
+      const count = 200;
+      const positions = new Float32Array(count * 3);
+      for (let i = 0; i < count * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 16;
+      }
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const particleMat = new THREE.PointsMaterial({ color: 0x36cfff, size: 0.04, transparent: true, opacity: 0.5 });
+      const particles = new THREE.Points(particleGeo, particleMat);
+      scene.add(particles);
+
+      // Studio Lighting
+      const ambLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambLight);
+
+      const pLight1 = new THREE.PointLight(0x00e5a8, 2, 20);
+      pLight1.position.set(5, 5, 5);
+      scene.add(pLight1);
+
+      const pLight2 = new THREE.PointLight(0x36cfff, 2, 20);
+      pLight2.position.set(-5, -5, 5);
+      scene.add(pLight2);
+
+      // Animation Loop
+      let clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsed = clock.getElapsedTime();
+
+        coreGroup.rotation.y = elapsed * 0.15;
+        coreGroup.rotation.x = Math.sin(elapsed * 0.1) * 0.2;
+
+        ring1.rotation.z = elapsed * 0.2;
+        ring2.rotation.z = -elapsed * 0.15;
+        ring3.rotation.z = elapsed * 0.1;
+
+        nodes.forEach((n, idx) => {
+          const a = n.angle + elapsed * (0.3 + idx * 0.05);
+          n.mesh.position.x = Math.cos(a) * n.radius;
+          n.mesh.position.y = Math.sin(a * 1.5) * 0.6;
+          n.mesh.position.z = Math.sin(a) * n.radius;
+        });
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
+  </script>
+</body>
+</html>
