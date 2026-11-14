@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PROOFCHAIN.AI — The AI That Detects Fake Progress</title>
-  <meta name="description" content="Autonomous AI software project intelligence, claim verification, diagnosis, and recovery platform.">
+  <title>PROOFCHAIN.AI — Autonomous Software Verification & Recovery Platform</title>
+  <meta name="description" content="The AI that detects fake progress, investigates claims against ground-truth evidence, and verifies fixes in isolated environments.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5a8'><path d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z'/></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
@@ -59,10 +60,10 @@
 </head>
 <body class="min-h-screen flex flex-col selection:bg-accentEmerald selection:text-black">
 
-  <!-- Navigation -->
+  <!-- Top Sticky Navigation Bar -->
   <header class="sticky top-0 z-50 w-full glass-panel border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('landing')">
         <div class="w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-accentEmerald via-accentCyan to-accentViolet">
           <div class="w-full h-full bg-bgDark rounded-[10px] flex items-center justify-center font-bold text-accentEmerald text-sm">
             PC
@@ -76,172 +77,897 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-4">
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono">
-          <span class="w-2 h-2 rounded-full bg-accentEmerald animate-pulse"></span>
-          <span class="text-slate-300">Live Production Preview</span>
-        </div>
-        <a href="https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-bold transition-all flex items-center gap-2">
+      <!-- Navigation Tabs Switcher -->
+      <nav class="hidden md:flex items-center gap-1 p-1 rounded-xl bg-white/5 border border-white/10 text-xs font-medium">
+        <button id="nav-btn-landing" onclick="switchView('landing')" class="px-3.5 py-1.5 rounded-lg transition-all text-accentEmerald bg-accentEmerald/10 border border-accentEmerald/20 font-semibold">
+          Landing Core
+        </button>
+        <button id="nav-btn-dashboard" onclick="switchView('dashboard')" class="px-3.5 py-1.5 rounded-lg transition-all text-slate-400 hover:text-white">
+          Mission Control
+        </button>
+        <button id="nav-btn-project" onclick="switchView('project')" class="px-3.5 py-1.5 rounded-lg transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
+          <span>Live Demo Dossier</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-accentEmerald animate-pulse"></span>
+        </button>
+      </nav>
+
+      <!-- Right Action Area -->
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-bold transition-all flex items-center gap-2">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          <span>GitHub</span>
+          <span class="hidden sm:inline">GitHub</span>
         </a>
-        <a href="https://vercel.com/new/clone?repository-url=https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black text-xs font-bold shadow-lg hover:opacity-90 transition-opacity">
-          Deploy to Vercel
-        </a>
+        <button onclick="switchView('project')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-xs shadow-lg hover:opacity-90 transition-opacity">
+          Launch App
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section with 3D Canvas -->
-  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 px-6">
-    <!-- WebGL Canvas -->
-    <div id="canvas-container" class="absolute inset-0 z-0 pointer-events-none opacity-80"></div>
+  <!-- VIEW 1: LANDING PAGE VIEW -->
+  <main id="view-landing" class="view-container">
+    <!-- Hero Section with 3D Canvas -->
+    <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 px-6">
+      <div id="canvas-container" class="absolute inset-0 z-0 pointer-events-none opacity-80"></div>
 
-    <div class="relative z-10 max-w-4xl mx-auto text-center space-y-6">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accentEmerald/10 border border-accentEmerald/30 text-accentEmerald text-xs font-mono">
-        <span class="w-2 h-2 rounded-full bg-accentEmerald animate-ping"></span>
-        AUTONOMOUS SOFTWARE VERIFICATION PLATFORM
-      </div>
-
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-tight">
-        YOUR PROJECT CLAIMS IT WORKS.<br />
-        <span class="text-gradient">WE FIND THE TRUTH.</span>
-      </h1>
-
-      <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-        The autonomous AI intelligence platform that investigates software claims, uncovers hidden failures, applies verified patches in isolated sandboxes, and certifies empirical release readiness.
-      </p>
-
-      <div class="flex items-center justify-center gap-4 flex-wrap pt-4">
-        <a href="https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-sm shadow-xl shadow-accentEmerald/20 hover:scale-105 transition-transform">
-          Explore Repository &amp; Code
-        </a>
-        <a href="#interactive-demo" class="px-6 py-3.5 rounded-xl glass-panel border border-white/10 text-white font-bold text-sm hover:border-white/30 transition-all">
-          Interactive Audit Walkthrough ↓
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Laser Scanning Verification Scene -->
-  <section class="py-20 px-6 max-w-7xl mx-auto w-full">
-    <div class="text-center space-y-3 mb-12">
-      <span class="text-xs font-mono text-accentCyan tracking-widest uppercase">Stage 01 — Claim Extraction</span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Laser Scanning Assertion Verification</h2>
-      <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
-        Every sprint claim is extracted into an atomic, testable hypothesis and matched against ground-truth evidence.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Card 1: Verified -->
-      <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentEmerald relative overflow-hidden">
-        <div class="flex items-center justify-between text-xs font-mono mb-3">
-          <span class="text-accentEmerald font-bold">STATUS: VERIFIED</span>
-          <span class="text-slate-500">HTTP 200 OK</span>
+      <div class="relative z-10 max-w-4xl mx-auto text-center space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accentEmerald/10 border border-accentEmerald/30 text-accentEmerald text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-accentEmerald animate-ping"></span>
+          AUTONOMOUS SOFTWARE VERIFICATION PLATFORM
         </div>
-        <h3 class="font-bold text-white text-base mb-2">Merchant Authentication Session</h3>
-        <p class="text-xs text-slate-400 leading-relaxed mb-4">
-          "Merchant login endpoint maintains active auth tokens and rejects malicious headers without session leaking."
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-tight">
+          YOUR PROJECT CLAIMS IT WORKS.<br />
+          <span class="text-gradient">WE FIND THE TRUTH.</span>
+        </h1>
+
+        <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          The autonomous AI intelligence platform that investigates software claims, uncovers hidden failures, applies verified patches in isolated sandboxes, and certifies empirical release readiness.
         </p>
-        <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentEmerald">
-          ✓ Verified via isolated test check (3ms)
+
+        <div class="flex items-center justify-center gap-4 flex-wrap pt-4">
+          <button onclick="switchView('project')" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-sm shadow-xl shadow-accentEmerald/20 hover:scale-105 transition-transform flex items-center gap-2">
+            <span>Launch Mission Control</span>
+            <span>→</span>
+          </button>
+          <button onclick="switchView('dashboard')" class="px-6 py-3.5 rounded-xl glass-panel border border-white/10 text-white font-bold text-sm hover:border-white/30 transition-all">
+            Explore Portfolio Metrics
+          </button>
         </div>
       </div>
+    </section>
 
-      <!-- Card 2: Contradicted -->
-      <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentRuby relative overflow-hidden">
-        <div class="laser-line absolute left-0 right-0 h-0.5 bg-accentRuby shadow-[0_0_8px_#ff5263] z-10 pointer-events-none"></div>
-        <div class="flex items-center justify-between text-xs font-mono mb-3">
-          <span class="text-accentRuby font-bold">STATUS: CONTRADICTED</span>
-          <span class="text-slate-500">HTTP 500 ERROR</span>
-        </div>
-        <h3 class="font-bold text-white text-base mb-2">Payment Processing Gateway</h3>
-        <p class="text-xs text-slate-400 leading-relaxed mb-4">
-          "Payment processing API is fully functional and production-ready."
+    <!-- Laser Scanning Verification Scene -->
+    <section class="py-20 px-6 max-w-7xl mx-auto w-full">
+      <div class="text-center space-y-3 mb-12">
+        <span class="text-xs font-mono text-accentCyan tracking-widest uppercase">Stage 01 — Claim Extraction</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Laser Scanning Assertion Verification</h2>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+          Every sprint claim is extracted into an atomic, testable hypothesis and matched against ground-truth evidence.
         </p>
-        <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentRuby">
-          ✗ Target returned HTTP 500 (Gateway Fault)
-        </div>
       </div>
 
-      <!-- Card 3: Unsupported -->
-      <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentAmber relative overflow-hidden">
-        <div class="flex items-center justify-between text-xs font-mono mb-3">
-          <span class="text-accentAmber font-bold">STATUS: UNSUPPORTED</span>
-          <span class="text-slate-500">NO EVIDENCE</span>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentEmerald relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-accentEmerald font-bold">STATUS: VERIFIED</span>
+            <span class="text-slate-500">HTTP 200 OK</span>
+          </div>
+          <h3 class="font-bold text-white text-base mb-2">Merchant Authentication Session</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">
+            "Merchant login endpoint maintains active auth tokens and rejects malicious headers without session leaking."
+          </p>
+          <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentEmerald">
+            ✓ Verified via isolated test check (3ms)
+          </div>
         </div>
-        <h3 class="font-bold text-white text-base mb-2">Mobile Responsiveness Suite</h3>
-        <p class="text-xs text-slate-400 leading-relaxed mb-4">
-          "Merchant portal layout seamlessly supports all mobile devices and touch interactions."
-        </p>
-        <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentAmber">
-          ⚠ Zero viewport audit traces found in dossier
+
+        <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentRuby relative overflow-hidden">
+          <div class="laser-line absolute left-0 right-0 h-0.5 bg-accentRuby shadow-[0_0_8px_#ff5263] z-10 pointer-events-none"></div>
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-accentRuby font-bold">STATUS: CONTRADICTED</span>
+            <span class="text-slate-500">HTTP 500 ERROR</span>
+          </div>
+          <h3 class="font-bold text-white text-base mb-2">Payment Processing Gateway</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">
+            "Payment processing API is fully functional and production-ready."
+          </p>
+          <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentRuby">
+            ✗ Target returned HTTP 500 (Gateway Fault)
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 border-l-4 border-l-accentAmber relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-accentAmber font-bold">STATUS: UNSUPPORTED</span>
+            <span class="text-slate-500">NO EVIDENCE</span>
+          </div>
+          <h3 class="font-bold text-white text-base mb-2">Mobile Responsiveness Suite</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">
+            "Merchant portal layout seamlessly supports all mobile devices and touch interactions."
+          </p>
+          <div class="p-3 rounded-xl bg-black/50 border border-white/5 font-mono text-[11px] text-accentAmber">
+            ⚠ Zero viewport audit traces found in dossier
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Interactive Demo Simulator -->
-  <section id="interactive-demo" class="py-20 px-6 max-w-5xl mx-auto w-full">
-    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10 shadow-2xl space-y-8">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+    <!-- Quick CTA -->
+    <section class="py-16 px-6 max-w-5xl mx-auto w-full">
+      <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
         <div>
-          <span class="text-[10px] font-mono uppercase tracking-widest text-accentCyan">Autonomous Remediation Workflow</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Recovery Studio: Patch &amp; Retest</h2>
+          <h2 class="text-2xl font-black text-white">Experience the Live Dossier</h2>
+          <p class="text-xs text-slate-400 mt-1 max-w-md">Step inside the Nexus Pay demo workspace with full claim extraction, recovery studio, and dependency graphs.</p>
         </div>
-        <span class="px-3 py-1 rounded-full bg-accentEmerald/10 text-accentEmerald border border-accentEmerald/30 text-xs font-mono font-bold">
-          Empirical Zero-Hallucination
-        </span>
+        <button onclick="switchView('project')" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-sm shadow-xl hover:opacity-90 transition-opacity shrink-0">
+          Open Demo Dossier Now →
+        </button>
       </div>
+    </section>
+  </main>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
-        <div class="p-5 rounded-2xl bg-black/60 border border-accentRuby/30 space-y-2">
-          <div class="text-accentRuby font-bold flex items-center justify-between">
-            <span>BEFORE PATCH (Fixture Bug)</span>
-            <span class="text-[10px] bg-accentRuby/20 px-2 py-0.5 rounded">HTTP 404</span>
-          </div>
-          <div class="text-slate-400 text-[11px]">Destination: /fixture/broken-docs-404</div>
-          <div class="p-3 rounded-lg bg-black/40 text-slate-300 font-mono text-[11px] overflow-x-auto">
-            &lt;a id="nav-docs" href="/fixture/broken-docs-404"&gt;API Docs&lt;/a&gt;
-          </div>
-          <div class="text-accentRuby text-[11px] font-semibold">✗ Result: Broken route detected by crawler</div>
-        </div>
 
-        <div class="p-5 rounded-2xl bg-black/60 border border-accentEmerald/30 space-y-2">
-          <div class="text-accentEmerald font-bold flex items-center justify-between">
-            <span>AFTER PATCH &amp; RETEST</span>
-            <span class="text-[10px] bg-accentEmerald/20 px-2 py-0.5 rounded">HTTP 200 OK</span>
-          </div>
-          <div class="text-slate-400 text-[11px]">Destination: /fixture/docs-valid</div>
-          <div class="p-3 rounded-lg bg-black/40 text-slate-300 font-mono text-[11px] overflow-x-auto">
-            &lt;a id="nav-docs" href="/fixture/docs-valid"&gt;API Docs&lt;/a&gt;
-          </div>
-          <div class="text-accentEmerald text-[11px] font-semibold">✓ Result: Route verified, claim moved to VERIFIED</div>
-        </div>
+  <!-- VIEW 2: MISSION CONTROL DASHBOARD -->
+  <main id="view-dashboard" class="view-container hidden flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+          <span>AI Mission Control</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-accentEmerald/10 text-accentEmerald border border-accentEmerald/30 font-mono font-bold">
+            LIVE TELEMETRY
+          </span>
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+          Real-time portfolio verification intelligence. All metrics derived from ground-truth test execution.
+        </p>
       </div>
+      <button onclick="switchView('project')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-bold text-xs shadow-md hover:opacity-90 transition-opacity">
+        Inspect Demo Project
+      </button>
+    </div>
 
-      <!-- Action Card -->
-      <div class="p-6 rounded-2xl glass-card flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div>
-          <div class="text-sm font-bold text-white">Ready to deploy your own instance?</div>
-          <div class="text-xs text-slate-400">Deploy full-stack Next.js app to Vercel with all API routes.</div>
-        </div>
-        <a href="https://vercel.com/new/clone?repository-url=https://github.com/sayanghosh67/proofchain-ai" target="_blank" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-xs shadow-lg hover:opacity-90 transition-opacity">
-          Deploy to Vercel Now
-        </a>
+    <!-- 6 Operational Metrics Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div class="p-4 rounded-2xl glass-card">
+        <div class="text-[10px] font-mono text-slate-500 uppercase">Audited Projects</div>
+        <div class="text-3xl font-black text-white mt-1">1</div>
+        <div class="text-[10px] text-slate-500 mt-1">Nexus Pay v1.0</div>
+      </div>
+      <div class="p-4 rounded-2xl glass-card">
+        <div class="text-[10px] font-mono text-accentCyan uppercase">Extracted Claims</div>
+        <div id="stat-claims-count" class="text-3xl font-black text-accentCyan mt-1">7</div>
+        <div class="text-[10px] text-slate-500 mt-1">PRD assertions</div>
+      </div>
+      <div class="p-4 rounded-2xl glass-card">
+        <div class="text-[10px] font-mono text-accentEmerald uppercase">Verified</div>
+        <div id="stat-verified-count" class="text-3xl font-black text-accentEmerald mt-1">2</div>
+        <div id="stat-coverage-pct" class="text-[10px] text-slate-500 mt-1">29% Pass Coverage</div>
+      </div>
+      <div class="p-4 rounded-2xl glass-card">
+        <div class="text-[10px] font-mono text-accentRuby uppercase">Contradicted</div>
+        <div id="stat-contradicted-count" class="text-3xl font-black text-accentRuby mt-1">2</div>
+        <div class="text-[10px] text-slate-500 mt-1">Disproved by tests</div>
+      </div>
+      <div class="p-4 rounded-2xl glass-card">
+        <div class="text-[10px] font-mono text-accentAmber uppercase">Unsupported</div>
+        <div class="text-3xl font-black text-accentAmber mt-1">3</div>
+        <div class="text-[10px] text-slate-500 mt-1">Missing proof</div>
+      </div>
+      <div class="p-4 rounded-2xl glass-card border border-accentRuby/20">
+        <div class="text-[10px] font-mono text-accentRuby uppercase font-bold">Critical Blockers</div>
+        <div id="stat-blocker-count" class="text-3xl font-black text-accentRuby mt-1">1</div>
+        <div class="text-[10px] text-accentRuby/80 mt-1">Gate blocker</div>
       </div>
     </div>
-  </section>
+
+    <!-- Verification Distribution Progress -->
+    <div class="p-6 rounded-2xl glass-panel space-y-4">
+      <div class="flex items-center justify-between text-xs font-mono">
+        <span class="text-white font-bold uppercase tracking-wider">Portfolio Verification Distribution</span>
+        <span class="text-slate-400">7 Total Assessed Assertions</span>
+      </div>
+      <div class="w-full h-3 rounded-full bg-white/5 overflow-hidden flex">
+        <div id="dist-verified-bar" style="width: 29%;" class="bg-accentEmerald h-full transition-all"></div>
+        <div id="dist-contradicted-bar" style="width: 29%;" class="bg-accentRuby h-full transition-all"></div>
+        <div style="width: 42%;" class="bg-accentAmber h-full transition-all"></div>
+      </div>
+      <div class="flex items-center gap-6 text-xs text-slate-400 flex-wrap">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-sm bg-accentEmerald"></div>
+          <span id="legend-verified">Verified (2)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-sm bg-accentRuby"></div>
+          <span id="legend-contradicted">Contradicted by Tests (2)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-sm bg-accentAmber"></div>
+          <span>Missing Evidence (3)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Projects List -->
+    <div class="space-y-4">
+      <h2 class="text-sm font-bold text-white uppercase font-mono tracking-wider">Active Audit Targets</h2>
+      <div onclick="switchView('project')" class="p-6 rounded-2xl glass-card border border-white/10 hover:border-accentEmerald/40 cursor-pointer transition-all flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-3 mb-1">
+            <h3 class="text-lg font-bold text-white hover:text-accentEmerald">Nexus Pay &amp; Cloud Portal v1.0</h3>
+            <span id="project-badge-tag" class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-accentRuby/10 text-accentRuby border border-accentRuby/30">
+              NO-GO
+            </span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accentViolet/20 text-accentViolet border border-accentViolet/30">
+              OFFICIAL HACKATHON TARGET
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 max-w-2xl">
+            Simulated fintech payment processing application asserting 100% verified merchant authentication, live payment checkout, and verified docs.
+          </p>
+          <div class="flex items-center gap-4 text-xs font-mono text-slate-500 mt-3">
+            <span>Repo: github.com/nexus-pay/portal</span>
+            <span>•</span>
+            <span class="text-accentCyan">Target: http://127.0.0.1:4319/fixture</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="text-right">
+            <div id="card-score-val" class="text-2xl font-black text-accentRuby">35 / 100</div>
+            <div class="text-[10px] text-slate-500 font-mono">Readiness Score</div>
+          </div>
+          <button class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors">
+            Enter Dossier →
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- VIEW 3: FULL PROJECT DOSSIER WITH SIDEBAR -->
+  <div id="view-project" class="view-container hidden flex-1 flex flex-col bg-bgDark">
+    <!-- Project Header Bar -->
+    <div class="bg-bgSec border-b border-white/[0.06] p-6">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-2.5 mb-1.5 flex-wrap">
+            <span class="text-xs text-slate-500 font-mono">Projects →</span>
+            <h1 class="text-xl sm:text-2xl font-black text-white">Nexus Pay &amp; Cloud Portal v1.0</h1>
+            <span id="header-verdict-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-accentRuby/10 text-accentRuby border border-accentRuby/30">
+              NO-GO
+            </span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-accentViolet/20 text-accentViolet font-mono border border-accentViolet/30">
+              DEMO FIXTURE
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 max-w-2xl">
+            Autonomous software audit investigating asserted claims against isolated sandbox test traces.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="runLiveAuditSimulation()" id="btn-run-audit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-xs shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
+            <span>⚡ Run Autonomous Audit</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Workspace Body with Sidebar -->
+    <div class="flex-1 flex max-w-7xl w-full mx-auto">
+      <!-- Sidebar -->
+      <aside class="w-60 shrink-0 border-r border-white/[0.06] bg-bgDark/80 p-3 space-y-1 hidden md:block">
+        <div class="text-[10px] font-mono tracking-widest text-slate-500 uppercase px-3 py-2">Audit Modules</div>
+        <button onclick="switchTab('overview')" id="tab-btn-overview" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-accentEmerald bg-accentEmerald/10 border border-accentEmerald/20 transition-all flex items-center gap-2.5">
+          <span>📊</span><span>Overview</span>
+        </button>
+        <button onclick="switchTab('claims')" id="tab-btn-claims" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5">
+          <span>🔍</span><span>Claims &amp; PRD (7)</span>
+        </button>
+        <button onclick="switchTab('evidence')" id="tab-btn-evidence" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5">
+          <span>📁</span><span>Evidence Vault (5)</span>
+        </button>
+        <button onclick="switchTab('audit')" id="tab-btn-audit" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5">
+          <span>🤖</span><span>AI Audit Agent</span>
+        </button>
+        <button onclick="switchTab('tests')" id="tab-btn-tests" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5">
+          <span>🧪</span><span>Test Center (3)</span>
+        </button>
+        <button onclick="switchTab('recovery')" id="tab-btn-recovery" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5">
+          <span>🔧</span><span>Recovery Studio</span>
+        </button>
+        <button onclick="switchTab('graph')" id="tab-btn-graph" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5">
+          <span>🌐</span><span>Digital Twin Graph</span>
+        </button>
+        <button onclick="switchTab('readiness')" id="tab-btn-readiness" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5">
+          <span>🎯</span><span>Release Gate</span>
+        </button>
+        <button onclick="switchTab('reports')" id="tab-btn-reports" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5">
+          <span>📄</span><span>Export Dossier</span>
+        </button>
+      </aside>
+
+      <!-- Main Module Content Panels -->
+      <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto space-y-6">
+
+        <!-- MODULE 1: OVERVIEW -->
+        <div id="module-overview" class="module-tab space-y-6">
+          <div class="p-6 rounded-2xl glass-panel border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-2">
+              <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Explainable Release Decision</span>
+              <div class="flex items-baseline gap-3">
+                <span class="text-slate-400 text-3xl font-black">VERDICT:</span>
+                <span id="overview-verdict-text" class="text-3xl font-black text-accentRuby">NO-GO</span>
+                <span id="overview-score-text" class="text-slate-500 font-mono text-lg">(Score: 35/100)</span>
+              </div>
+              <p id="overview-rationale" class="text-xs text-slate-400 max-w-xl">
+                Release blocked: Critical payment endpoint check failed with HTTP 500 Internal Server Error. Claimed 100% doc verification contradicted by broken 404 navigation link.
+              </p>
+            </div>
+            <button onclick="switchTab('recovery')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-xs shadow-lg hover:opacity-90 shrink-0">
+              Open Recovery Studio →
+            </button>
+          </div>
+
+          <!-- 4 Cards -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div onclick="switchTab('claims')" class="p-5 rounded-2xl glass-card cursor-pointer hover:border-accentEmerald/30 transition-all">
+              <div class="text-[10px] font-mono text-slate-500 uppercase">Claims Assessed</div>
+              <div class="text-3xl font-black text-white mt-1">7</div>
+              <div class="text-[10px] text-slate-500 mt-1">From PRDs &amp; sprint notes</div>
+            </div>
+            <div onclick="switchTab('evidence')" class="p-5 rounded-2xl glass-card cursor-pointer hover:border-accentEmerald/30 transition-all">
+              <div class="text-[10px] font-mono text-accentEmerald uppercase">Evidence Items</div>
+              <div class="text-3xl font-black text-accentEmerald mt-1">5</div>
+              <div class="text-[10px] text-slate-500 mt-1">Logs, traces &amp; configs</div>
+            </div>
+            <div onclick="switchTab('tests')" class="p-5 rounded-2xl glass-card cursor-pointer hover:border-accentViolet/30 transition-all">
+              <div class="text-[10px] font-mono text-accentViolet uppercase">Empirical Tests</div>
+              <div class="text-3xl font-black text-accentViolet mt-1">3</div>
+              <div class="text-[10px] text-slate-500 mt-1">1 Pass, 1 Fail, 1 Redirect</div>
+            </div>
+            <div onclick="switchTab('recovery')" class="p-5 rounded-2xl glass-card cursor-pointer hover:border-accentRuby/30 transition-all">
+              <div class="text-[10px] font-mono text-accentRuby uppercase">Open Findings</div>
+              <div id="overview-finding-count" class="text-3xl font-black text-accentRuby mt-1">1</div>
+              <div class="text-[10px] text-slate-500 mt-1">Actionable remediation</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 2: CLAIMS -->
+        <div id="module-claims" class="module-tab hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-white">Claims &amp; Assertions Intelligence</h2>
+              <p class="text-xs text-slate-400">Atomic, testable assertions extracted from project PRD.</p>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl glass-card border-l-4 border-l-accentEmerald">
+              <div class="flex items-center justify-between text-xs font-mono mb-1">
+                <span class="text-white font-bold">Claim #1: Merchant authentication session security</span>
+                <span class="text-accentEmerald font-bold bg-accentEmerald/10 px-2 py-0.5 rounded">VERIFIED</span>
+              </div>
+              <div class="text-xs text-slate-400">"Merchant authentication is 100% functional with zero session vulnerabilities."</div>
+            </div>
+
+            <div id="claim-card-payment" class="p-4 rounded-xl glass-card border-l-4 border-l-accentRuby">
+              <div class="flex items-center justify-between text-xs font-mono mb-1">
+                <span class="text-white font-bold">Claim #2: Payment checkout gateway availability</span>
+                <span class="text-accentRuby font-bold bg-accentRuby/10 px-2 py-0.5 rounded">CONTRADICTED</span>
+              </div>
+              <div class="text-xs text-slate-400">"Payment processing API is fully functional and production-ready."</div>
+            </div>
+
+            <div id="claim-card-docs" class="p-4 rounded-xl glass-card border-l-4 border-l-accentRuby">
+              <div class="flex items-center justify-between text-xs font-mono mb-1">
+                <span class="text-white font-bold">Claim #3: Documentation and navigation validity</span>
+                <span id="claim-3-badge" class="text-accentRuby font-bold bg-accentRuby/10 px-2 py-0.5 rounded">CONTRADICTED</span>
+              </div>
+              <div class="text-xs text-slate-400">"All documentation and portal navigation links are fully verified."</div>
+            </div>
+
+            <div class="p-4 rounded-xl glass-card border-l-4 border-l-accentAmber">
+              <div class="flex items-center justify-between text-xs font-mono mb-1">
+                <span class="text-white font-bold">Claim #4: Cross-device viewport responsiveness</span>
+                <span class="text-accentAmber font-bold bg-accentAmber/10 px-2 py-0.5 rounded">UNSUPPORTED</span>
+              </div>
+              <div class="text-xs text-slate-400">"Merchant portal layout seamlessly supports all mobile devices."</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 3: EVIDENCE VAULT -->
+        <div id="module-evidence" class="module-tab hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-white">Evidence Vault &amp; Provenance</h2>
+              <p class="text-xs text-slate-400">Indexed raw artifacts, execution logs, and network traces.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="space-y-2">
+              <div onclick="selectEvidence('log-login')" class="p-3.5 rounded-xl glass-card border border-accentEmerald/30 cursor-pointer">
+                <div class="text-xs font-bold text-white">auth_flow.log</div>
+                <div class="text-[10px] text-accentCyan font-mono">text/plain • 1.2 KB</div>
+              </div>
+              <div onclick="selectEvidence('log-payment')" class="p-3.5 rounded-xl glass-card cursor-pointer hover:border-white/20">
+                <div class="text-xs font-bold text-white">gateway_500.trace</div>
+                <div class="text-[10px] text-accentRuby font-mono">application/json • 2.8 KB</div>
+              </div>
+              <div onclick="selectEvidence('log-docs')" class="p-3.5 rounded-xl glass-card cursor-pointer hover:border-white/20">
+                <div class="text-xs font-bold text-white">nav_crawler.txt</div>
+                <div class="text-[10px] text-accentAmber font-mono">text/plain • 840 B</div>
+              </div>
+            </div>
+
+            <div class="md:col-span-2 p-5 rounded-2xl glass-panel border border-white/10 font-mono text-xs text-slate-300 overflow-x-auto h-80">
+              <div class="text-slate-500 mb-2 font-bold uppercase tracking-wider text-[10px]">RAW ARTIFACT INSPECTOR:</div>
+              <pre id="evidence-viewer-content" class="leading-relaxed">
+[2026-11-14T05:00:12Z] POST /fixture/login HTTP/1.1
+Host: 127.0.0.1:4319
+Authorization: Bearer test_merchant_token_valid
+Response: 200 OK
+{
+  "status": "authenticated",
+  "merchantId": "merch_88294",
+  "sessionDuration": 3600
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 4: AI AUDIT AGENT -->
+        <div id="module-audit" class="module-tab hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-white">Autonomous AI Audit Trace</h2>
+              <p class="text-xs text-slate-400">Autonomous tool calls executed by the AI verification agent.</p>
+            </div>
+            <button onclick="runLiveAuditSimulation()" class="px-4 py-2 rounded-xl bg-accentEmerald text-black font-bold text-xs hover:opacity-90">
+              Re-run Agent Steps
+            </button>
+          </div>
+
+          <div id="agent-timeline" class="space-y-3 font-mono text-xs">
+            <div class="p-4 rounded-xl glass-card border border-white/10">
+              <div class="flex items-center justify-between text-accentCyan font-bold mb-1">
+                <span>STEP 1: index_evidence_artifacts</span>
+                <span class="text-slate-500">12ms</span>
+              </div>
+              <div class="text-slate-400">Indexed 5 evidence files into PostgreSQL full-text search index.</div>
+            </div>
+            <div class="p-4 rounded-xl glass-card border border-white/10">
+              <div class="flex items-center justify-between text-accentCyan font-bold mb-1">
+                <span>STEP 2: check_http_endpoint ("http://127.0.0.1:4319/fixture/login")</span>
+                <span class="text-accentEmerald font-bold">PASSED (3ms)</span>
+              </div>
+              <div class="text-slate-400">Target returned HTTP 200 OK. Auth token confirmed valid.</div>
+            </div>
+            <div class="p-4 rounded-xl glass-card border border-white/10">
+              <div class="flex items-center justify-between text-accentCyan font-bold mb-1">
+                <span>STEP 3: check_http_endpoint ("http://127.0.0.1:4319/fixture/api/payment")</span>
+                <span class="text-accentRuby font-bold">FAILED (1ms)</span>
+              </div>
+              <div class="text-accentRuby">Target returned HTTP 500 Internal Server Error. Gateway failure detected.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 5: TESTS -->
+        <div id="module-tests" class="module-tab hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-white">Empirical Test Execution Center</h2>
+              <p class="text-xs text-slate-400">Deterministic loopback fixture checks.</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-5 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-bold text-white text-sm">Auth Endpoint Check</div>
+                <div class="font-mono text-xs text-slate-400">http://127.0.0.1:4319/fixture/login</div>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-accentEmerald/10 text-accentEmerald border border-accentEmerald/30">
+                PASSED (200 OK)
+              </span>
+            </div>
+
+            <div class="p-5 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-bold text-white text-sm">Payment API Check</div>
+                <div class="font-mono text-xs text-slate-400">http://127.0.0.1:4319/fixture/api/payment</div>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-accentRuby/10 text-accentRuby border border-accentRuby/30">
+                FAILED (500 ERROR)
+              </span>
+            </div>
+
+            <div id="test-row-docs" class="p-5 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-bold text-white text-sm">Docs Link Navigation Check</div>
+                <div class="font-mono text-xs text-slate-400">http://127.0.0.1:4319/fixture/docs</div>
+              </div>
+              <span id="test-badge-docs" class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-accentRuby/10 text-accentRuby border border-accentRuby/30">
+                CONTRADICTED (404)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 6: RECOVERY STUDIO -->
+        <div id="module-recovery" class="module-tab hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-white">Autonomous Recovery Studio</h2>
+              <p class="text-xs text-slate-400">Controlled patch synthesis, user approval, and automatic retest.</p>
+            </div>
+            <div id="recovery-status-pill" class="px-3 py-1 rounded-full bg-accentAmber/10 text-accentAmber border border-accentAmber/30 text-xs font-mono font-bold">
+              PATCH READY FOR APPROVAL
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl glass-panel border border-white/10 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+              <div>
+                <span class="text-[10px] font-mono text-accentCyan uppercase">Target: src/components/HeaderNav.tsx</span>
+                <h3 class="text-lg font-bold text-white mt-0.5">Fix Broken Documentation Route Link</h3>
+              </div>
+              <div class="flex items-center gap-3">
+                <button id="btn-approve-patch" onclick="applyPatchSimulation()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-xs shadow-lg hover:opacity-90 transition-opacity">
+                  Approve Patch &amp; Retest
+                </button>
+                <button id="btn-revert-patch" onclick="revertPatchSimulation()" class="hidden px-4 py-2.5 rounded-xl glass-panel border border-accentAmber/30 text-accentAmber text-xs font-semibold hover:border-accentAmber/60">
+                  Revert
+                </button>
+              </div>
+            </div>
+
+            <!-- Unified Diff Viewer -->
+            <div class="p-4 rounded-xl bg-black/60 border border-white/10 font-mono text-xs space-y-1">
+              <div class="text-slate-500 pb-1">@@ -14,3 +14,3 @@ public navigation anchor</div>
+              <div id="diff-line-remove" class="p-1 rounded bg-accentRuby/15 text-accentRuby">-   &lt;a id="nav-docs" href="/fixture/broken-docs-404"&gt;API Docs&lt;/a&gt;</div>
+              <div id="diff-line-add" class="p-1 rounded bg-accentEmerald/15 text-accentEmerald">+   &lt;a id="nav-docs" href="/fixture/docs-valid"&gt;API Docs&lt;/a&gt;</div>
+            </div>
+
+            <!-- Before vs After -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+              <div class="p-4 rounded-xl bg-accentRuby/10 border border-accentRuby/30 space-y-1">
+                <div class="text-accentRuby font-bold">BEFORE (Fixture State)</div>
+                <div class="text-slate-300">Destination: /fixture/broken-docs-404</div>
+                <div class="text-accentRuby font-semibold">Result: HTTP 404 Route Not Found</div>
+              </div>
+              <div id="recovery-after-box" class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                <div class="text-slate-400 font-bold">AFTER (Pending User Approval)</div>
+                <div class="text-slate-300">Destination: /fixture/docs-valid</div>
+                <div id="recovery-after-text" class="text-slate-500 font-semibold">Awaiting user authorization</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 7: GRAPH -->
+        <div id="module-graph" class="module-tab hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-white">Digital Twin Evidence Graph</h2>
+              <p class="text-xs text-slate-400">Interactive failure cascade and blast-radius simulation.</p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono">
+              <span class="text-slate-400">Inject Fault:</span>
+              <select onchange="updateBlastRadius(this.value)" class="bg-black/50 border border-white/10 rounded-lg px-2.5 py-1 text-white">
+                <option value="node-pay">Payment Engine (API)</option>
+                <option value="node-auth">Auth Controller (API)</option>
+                <option value="node-docs">Documentation Hub</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
+            <div id="graph-node-auth" class="p-4 rounded-xl glass-card border border-accentEmerald/40">
+              <div class="text-white font-bold text-sm">Auth Controller</div>
+              <div class="text-slate-400 mt-1">Status: HEALTHY</div>
+            </div>
+            <div id="graph-node-pay" class="p-4 rounded-xl bg-accentRuby/10 border border-accentRuby/50">
+              <div class="text-white font-bold text-sm">Payment Engine</div>
+              <div class="text-accentRuby mt-1">Status: FAILING (500)</div>
+            </div>
+            <div id="graph-node-db" class="p-4 rounded-xl bg-accentRuby/10 border border-accentRuby/50">
+              <div class="text-white font-bold text-sm">Postgres Transactions</div>
+              <div class="text-accentRuby mt-1">⚠ In blast radius</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 8: READINESS GATE -->
+        <div id="module-readiness" class="module-tab hidden space-y-6">
+          <div class="p-8 rounded-2xl glass-panel border border-white/10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="space-y-4 flex-1">
+              <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Release Gate Evaluation</span>
+              <div class="text-4xl sm:text-5xl font-black text-white">
+                VERDICT: <span id="gate-verdict-text" class="text-accentRuby">NO-GO</span>
+              </div>
+              <div class="text-xs text-slate-400 leading-relaxed max-w-lg">
+                Deterministic mathematical scoring derived from verified assertions and empirical test checks. No hallucinated passes.
+              </div>
+            </div>
+
+            <!-- Circular SVG Gauge -->
+            <div class="relative flex items-center justify-center w-40 h-40">
+              <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="transparent" />
+                <circle id="gauge-circle" cx="50" cy="50" r="45" stroke="#ff5263" stroke-width="8" stroke-dasharray="283" stroke-dashoffset="184" stroke-linecap="round" fill="transparent" class="transition-all duration-700" />
+              </svg>
+              <div class="absolute flex flex-col items-center">
+                <span id="gauge-score-number" class="text-3xl font-black text-white font-mono">35</span>
+                <span class="text-[9px] text-slate-500 uppercase font-mono">Score / 100</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 9: REPORTS -->
+        <div id="module-reports" class="module-tab hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-white">Certified Audit Dossier Export</h2>
+              <p class="text-xs text-slate-400">Download tamper-evident verification audit records.</p>
+            </div>
+            <button onclick="downloadJSONDossier()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentEmerald to-accentCyan text-black font-extrabold text-xs shadow-lg hover:opacity-90">
+              Download JSON Dossier
+            </button>
+          </div>
+
+          <div class="p-8 rounded-2xl glass-panel border border-white/10 font-mono text-xs text-slate-300 space-y-4">
+            <div class="border-b border-white/10 pb-4 flex justify-between">
+              <div>
+                <div class="text-accentEmerald font-bold text-sm">PROOFCHAIN.AI OFFICIAL CERTIFICATE</div>
+                <div class="text-white text-base font-bold mt-1">Nexus Pay &amp; Cloud Portal v1.0</div>
+              </div>
+              <div class="text-right">
+                <div class="text-slate-500">Date: 2026-11-14</div>
+                <div id="dossier-verdict" class="text-accentRuby font-bold mt-1">Verdict: NO-GO</div>
+              </div>
+            </div>
+            <p class="text-slate-400">
+              This dossier certifies empirical verification status under PROOFCHAIN.AI non-negotiable rules. All tests executed in isolated sandboxes.
+            </p>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
 
   <!-- Footer -->
-  <footer class="mt-auto border-t border-white/10 py-10 px-6 text-center text-xs text-slate-500 font-mono space-y-2">
+  <footer class="mt-auto border-t border-white/10 py-6 px-6 text-center text-xs text-slate-500 font-mono space-y-1">
     <div>PROOFCHAIN.AI — "Never trust a project completion claim without verifiable evidence."</div>
-    <div>MIT License • Built with Next.js, Google Gemini, and Three.js</div>
+    <div class="text-[11px] text-slate-600">MIT License • Built with Next.js, Google Gemini, and Three.js</div>
   </footer>
 
-  <!-- Three.js 3D Proof Core Background -->
+  <!-- Application Logic & Three.js Animation -->
   <script>
+    // State
+    const appState = {
+      currentView: 'landing',
+      currentTab: 'overview',
+      patchApplied: false,
+      score: 35,
+      verdict: 'NO-GO'
+    };
+
+    // Navigation Switcher
+    function switchView(viewName) {
+      document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
+      document.getElementById('view-' + viewName).classList.remove('hidden');
+
+      // Update Nav Buttons
+      ['landing', 'dashboard', 'project'].forEach(v => {
+        const btn = document.getElementById('nav-btn-' + v);
+        if (btn) {
+          if (v === viewName) {
+            btn.className = "px-3.5 py-1.5 rounded-lg transition-all text-accentEmerald bg-accentEmerald/10 border border-accentEmerald/20 font-semibold";
+          } else {
+            btn.className = "px-3.5 py-1.5 rounded-lg transition-all text-slate-400 hover:text-white";
+          }
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Sidebar Tab Switcher
+    function switchTab(tabName) {
+      document.querySelectorAll('.module-tab').forEach(el => el.classList.add('hidden'));
+      document.getElementById('module-' + tabName).classList.remove('hidden');
+
+      ['overview', 'claims', 'evidence', 'audit', 'tests', 'recovery', 'graph', 'readiness', 'reports'].forEach(t => {
+        const btn = document.getElementById('tab-btn-' + t);
+        if (btn) {
+          if (t === tabName) {
+            btn.className = "w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-accentEmerald bg-accentEmerald/10 border border-accentEmerald/20 transition-all flex items-center gap-2.5";
+          } else {
+            btn.className = "w-full text-left px-3 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5";
+          }
+        }
+      });
+    }
+
+    // Evidence Selector
+    function selectEvidence(id) {
+      const viewer = document.getElementById('evidence-viewer-content');
+      if (id === 'log-login') {
+        viewer.textContent = `[2026-11-14T05:00:12Z] POST /fixture/login HTTP/1.1\nHost: 127.0.0.1:4319\nAuthorization: Bearer test_merchant_token_valid\nResponse: 200 OK\n{\n  "status": "authenticated",\n  "merchantId": "merch_88294",\n  "sessionDuration": 3600\n}`;
+      } else if (id === 'log-payment') {
+        viewer.textContent = `[2026-11-14T05:00:13Z] POST /fixture/api/payment HTTP/1.1\nHost: 127.0.0.1:4319\nPayload: {"amount": 5000, "currency": "USD"}\nResponse: 500 Internal Server Error\n{\n  "error": "Gateway timeout connecting to upstream settlement processor",\n  "code": "SETTLEMENT_TIMEOUT"\n}`;
+      } else if (id === 'log-docs') {
+        viewer.textContent = `[2026-11-14T05:00:14Z] GET /fixture/docs HTTP/1.1\nHost: 127.0.0.1:4319\nCrawler: Anchor inspected <a id="nav-docs" href="/fixture/broken-docs-404">\nResponse: 404 Not Found\nVerdict: CONTRADICTS claim that all documentation links are verified.`;
+      }
+    }
+
+    // Recovery Studio Patch Approval & Retest Simulation
+    function applyPatchSimulation() {
+      appState.patchApplied = true;
+      appState.score = 70;
+      appState.verdict = 'CONDITIONAL_GO';
+
+      // Update UI elements
+      document.getElementById('btn-approve-patch').classList.add('hidden');
+      document.getElementById('btn-revert-patch').classList.remove('hidden');
+      document.getElementById('recovery-status-pill').textContent = "FIX APPLIED & RETEST VERIFIED";
+      document.getElementById('recovery-status-pill').className = "px-3 py-1 rounded-full bg-accentEmerald/10 text-accentEmerald border border-accentEmerald/30 text-xs font-mono font-bold";
+
+      document.getElementById('recovery-after-box').className = "p-4 rounded-xl bg-accentEmerald/10 border border-accentEmerald/30 space-y-1";
+      document.getElementById('recovery-after-text').className = "text-accentEmerald font-semibold";
+      document.getElementById('recovery-after-text').textContent = "✓ Retest Passed: HTTP 200 OK (Route Verified)";
+
+      // Update claims tab
+      document.getElementById('claim-3-badge').textContent = "VERIFIED";
+      document.getElementById('claim-3-badge').className = "text-accentEmerald font-bold bg-accentEmerald/10 px-2 py-0.5 rounded";
+      document.getElementById('claim-card-docs').className = "p-4 rounded-xl glass-card border-l-4 border-l-accentEmerald";
+
+      // Update test tab
+      document.getElementById('test-badge-docs').textContent = "PASSED (200 OK)";
+      document.getElementById('test-badge-docs').className = "px-3 py-1 rounded-full text-xs font-mono font-bold bg-accentEmerald/10 text-accentEmerald border border-accentEmerald/30";
+
+      // Update overview
+      document.getElementById('overview-verdict-text').textContent = "CONDITIONAL GO";
+      document.getElementById('overview-verdict-text').className = "text-3xl font-black text-accentAmber";
+      document.getElementById('overview-score-text').textContent = "(Score: 70/100)";
+      document.getElementById('header-verdict-badge').textContent = "CONDITIONAL GO";
+      document.getElementById('header-verdict-badge').className = "px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-accentAmber/10 text-accentAmber border border-accentAmber/30";
+      document.getElementById('project-badge-tag').textContent = "CONDITIONAL GO";
+      document.getElementById('project-badge-tag').className = "px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-accentAmber/10 text-accentAmber border border-accentAmber/30";
+      document.getElementById('card-score-val').textContent = "70 / 100";
+      document.getElementById('card-score-val').className = "text-2xl font-black text-accentAmber";
+
+      // Update gauge
+      document.getElementById('gate-verdict-text').textContent = "CONDITIONAL GO";
+      document.getElementById('gate-verdict-text').className = "text-accentAmber";
+      document.getElementById('gauge-score-number').textContent = "70";
+      document.getElementById('gauge-circle').setAttribute('stroke', '#ffb547');
+      document.getElementById('gauge-circle').setAttribute('stroke-dashoffset', '85');
+
+      // Update stats
+      document.getElementById('stat-verified-count').textContent = "3";
+      document.getElementById('stat-contradicted-count').textContent = "1";
+      document.getElementById('stat-coverage-pct').textContent = "43% Pass Coverage";
+      document.getElementById('dist-verified-bar').style.width = "43%";
+      document.getElementById('dist-contradicted-bar').style.width = "14%";
+      document.getElementById('legend-verified').textContent = "Verified (3)";
+      document.getElementById('legend-contradicted').textContent = "Contradicted by Tests (1)";
+
+      alert("✓ Patch successfully dispatched and applied!\nRetest outcome: HTTP 200 OK (Route Verified).\nClaim #3 is now VERIFIED. Score updated from 35 -> 70.");
+    }
+
+    function revertPatchSimulation() {
+      appState.patchApplied = false;
+      appState.score = 35;
+      appState.verdict = 'NO-GO';
+
+      document.getElementById('btn-approve-patch').classList.remove('hidden');
+      document.getElementById('btn-revert-patch').classList.add('hidden');
+      document.getElementById('recovery-status-pill').textContent = "PATCH READY FOR APPROVAL";
+      document.getElementById('recovery-status-pill').className = "px-3 py-1 rounded-full bg-accentAmber/10 text-accentAmber border border-accentAmber/30 text-xs font-mono font-bold";
+
+      document.getElementById('recovery-after-box').className = "p-4 rounded-xl bg-white/5 border border-white/10 space-y-1";
+      document.getElementById('recovery-after-text').className = "text-slate-500 font-semibold";
+      document.getElementById('recovery-after-text').textContent = "Awaiting user authorization";
+
+      document.getElementById('claim-3-badge').textContent = "CONTRADICTED";
+      document.getElementById('claim-3-badge').className = "text-accentRuby font-bold bg-accentRuby/10 px-2 py-0.5 rounded";
+      document.getElementById('claim-card-docs').className = "p-4 rounded-xl glass-card border-l-4 border-l-accentRuby";
+
+      document.getElementById('test-badge-docs').textContent = "CONTRADICTED (404)";
+      document.getElementById('test-badge-docs').className = "px-3 py-1 rounded-full text-xs font-mono font-bold bg-accentRuby/10 text-accentRuby border border-accentRuby/30";
+
+      document.getElementById('overview-verdict-text').textContent = "NO-GO";
+      document.getElementById('overview-verdict-text').className = "text-3xl font-black text-accentRuby";
+      document.getElementById('overview-score-text').textContent = "(Score: 35/100)";
+      document.getElementById('header-verdict-badge').textContent = "NO-GO";
+      document.getElementById('header-verdict-badge').className = "px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-accentRuby/10 text-accentRuby border border-accentRuby/30";
+      document.getElementById('project-badge-tag').textContent = "NO-GO";
+      document.getElementById('project-badge-tag').className = "px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-accentRuby/10 text-accentRuby border border-accentRuby/30";
+      document.getElementById('card-score-val').textContent = "35 / 100";
+      document.getElementById('card-score-val').className = "text-2xl font-black text-accentRuby";
+
+      document.getElementById('gate-verdict-text').textContent = "NO-GO";
+      document.getElementById('gate-verdict-text').className = "text-accentRuby";
+      document.getElementById('gauge-score-number').textContent = "35";
+      document.getElementById('gauge-circle').setAttribute('stroke', '#ff5263');
+      document.getElementById('gauge-circle').setAttribute('stroke-dashoffset', '184');
+
+      document.getElementById('stat-verified-count').textContent = "2";
+      document.getElementById('stat-contradicted-count').textContent = "2";
+      document.getElementById('stat-coverage-pct').textContent = "29% Pass Coverage";
+      document.getElementById('dist-verified-bar').style.width = "29%";
+      document.getElementById('dist-contradicted-bar').style.width = "29%";
+      document.getElementById('legend-verified').textContent = "Verified (2)";
+      document.getElementById('legend-contradicted').textContent = "Contradicted by Tests (2)";
+    }
+
+    // Graph Blast Radius Fault Injector
+    function updateBlastRadius(val) {
+      const pay = document.getElementById('graph-node-pay');
+      const db = document.getElementById('graph-node-db');
+      const auth = document.getElementById('graph-node-auth');
+
+      if (val === 'node-pay') {
+        pay.className = "p-4 rounded-xl bg-accentRuby/10 border border-accentRuby/50";
+        db.className = "p-4 rounded-xl bg-accentRuby/10 border border-accentRuby/50";
+        auth.className = "p-4 rounded-xl glass-card border border-accentEmerald/40";
+      } else if (val === 'node-auth') {
+        auth.className = "p-4 rounded-xl bg-accentRuby/10 border border-accentRuby/50";
+        pay.className = "p-4 rounded-xl glass-card border border-accentEmerald/40";
+        db.className = "p-4 rounded-xl glass-card border border-accentEmerald/40";
+      } else {
+        auth.className = "p-4 rounded-xl glass-card border border-accentEmerald/40";
+        pay.className = "p-4 rounded-xl glass-card border border-accentEmerald/40";
+        db.className = "p-4 rounded-xl glass-card border border-accentEmerald/40";
+      }
+    }
+
+    // Live Audit Simulation
+    function runLiveAuditSimulation() {
+      const btn = document.getElementById('btn-run-audit');
+      btn.innerHTML = `<span class="inline-block animate-spin">⟳</span> Agent Executing...`;
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = `✓ Audit Completed`;
+        setTimeout(() => {
+          btn.innerHTML = `<span>⚡ Run Autonomous Audit</span>`;
+          btn.disabled = false;
+        }, 2000);
+        switchTab('audit');
+      }, 1200);
+    }
+
+    // Real JSON Download
+    function downloadJSONDossier() {
+      const dossier = {
+        platform: "PROOFCHAIN.AI",
+        project: "Nexus Pay & Cloud Portal v1.0",
+        timestamp: new Date().toISOString(),
+        score: appState.score,
+        verdict: appState.verdict,
+        patchApplied: appState.patchApplied,
+        guarantee: "Verified via empirical test execution. Zero hallucinated passes."
+      };
+      const blob = new Blob([JSON.stringify(dossier, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `proofchain-audit-nexus-pay.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Three.js 3D Proof Core Background
     (function initProofCore() {
       const container = document.getElementById('canvas-container');
       if (!container || typeof THREE === 'undefined') return;
@@ -255,11 +981,10 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       container.appendChild(renderer.domElement);
 
-      // Core Geometric Objects
       const coreGroup = new THREE.Group();
       scene.add(coreGroup);
 
-      // 1. Inner Metallic Core
+      // Inner Metallic Core
       const innerGeo = new THREE.IcosahedronGeometry(1.6, 1);
       const innerMat = new THREE.MeshStandardMaterial({
         color: 0x050810,
@@ -270,7 +995,7 @@
       const innerMesh = new THREE.Mesh(innerGeo, innerMat);
       coreGroup.add(innerMesh);
 
-      // 2. Orbital Rings
+      // Orbital Rings
       const createRing = (radius, color, rotX, rotY) => {
         const ringGeo = new THREE.TorusGeometry(radius, 0.02, 16, 100);
         const ringMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.6 });
@@ -287,7 +1012,7 @@
       coreGroup.add(ring2);
       coreGroup.add(ring3);
 
-      // 3. Orbiting Nodes
+      // Orbiting Nodes
       const nodeGeo = new THREE.SphereGeometry(0.08, 16, 16);
       const nodeMat = new THREE.MeshBasicMaterial({ color: 0x00e5a8 });
       const nodes = [];
@@ -297,7 +1022,7 @@
         nodes.push({ mesh: node, angle: (i / 8) * Math.PI * 2, radius: 2.4 + (i % 3) * 0.4 });
       }
 
-      // 4. Particle Field
+      // Particle Field
       const particleGeo = new THREE.BufferGeometry();
       const count = 200;
       const positions = new Float32Array(count * 3);
@@ -310,18 +1035,11 @@
       scene.add(particles);
 
       // Studio Lighting
-      const ambLight = new THREE.AmbientLight(0xffffff, 0.6);
-      scene.add(ambLight);
-
+      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
       const pLight1 = new THREE.PointLight(0x00e5a8, 2, 20);
       pLight1.position.set(5, 5, 5);
       scene.add(pLight1);
 
-      const pLight2 = new THREE.PointLight(0x36cfff, 2, 20);
-      pLight2.position.set(-5, -5, 5);
-      scene.add(pLight2);
-
-      // Animation Loop
       let clock = new THREE.Clock();
       function animate() {
         requestAnimationFrame(animate);
@@ -329,10 +1047,8 @@
 
         coreGroup.rotation.y = elapsed * 0.15;
         coreGroup.rotation.x = Math.sin(elapsed * 0.1) * 0.2;
-
         ring1.rotation.z = elapsed * 0.2;
         ring2.rotation.z = -elapsed * 0.15;
-        ring3.rotation.z = elapsed * 0.1;
 
         nodes.forEach((n, idx) => {
           const a = n.angle + elapsed * (0.3 + idx * 0.05);
