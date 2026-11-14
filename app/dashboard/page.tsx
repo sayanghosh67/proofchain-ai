@@ -44,216 +44,227 @@ export default function DashboardPage() {
   const verificationRate = totalClaims > 0 ? Math.round((totalVerified / totalClaims) * 100) : 0;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#070B14]">
+    <div className="min-h-screen flex flex-col bg-[#050810]">
       <Navbar />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
-        {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      {/* Command-center header bar */}
+      <div className="bg-[#0b1120] border-b border-white/[0.06]">
+        {/* Gradient accent line */}
+        <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#00e5a8] to-transparent opacity-60" />
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-              <span>AI Mission Control</span>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono">
-                LIVE TELEMETRY
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                MISSION CONTROL
+              </h1>
+              {/* Live telemetry badge */}
+              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00e5a8]/10 border border-[#00e5a8]/20 text-[#00e5a8] text-[10px] font-mono font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00e5a8] animate-pulse" />
+                LIVE
               </span>
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              Real-time portfolio verification intelligence. No fabricated numbers.
+            </div>
+            <p className="text-slate-400 text-sm mt-1">
+              Portfolio verification intelligence. All numbers are empirical.
             </p>
           </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/projects/new"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-md transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              <span>New Audit Project</span>
-            </Link>
-          </div>
+          <Link
+            href="/projects/new"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#00e5a8] to-[#36cfff] text-[#050810] font-bold px-5 py-2.5 rounded-xl text-sm hover:opacity-90 transition-opacity whitespace-nowrap"
+          >
+            <Plus className="w-4 h-4" />
+            + New Audit Project
+          </Link>
         </div>
+      </div>
 
-        {/* Operational Metrics Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
-          {/* Total Projects */}
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">
-              Audited Projects
-            </div>
-            <div className="text-2xl font-bold text-white">{totalProjects}</div>
-            <div className="text-[10px] text-slate-400 mt-1">Active audit targets</div>
+      <main className="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 py-8">
+        {loading ? (
+          <div className="flex items-center justify-center min-h-[40vh]">
+            <div className="w-8 h-8 border-2 border-[#00e5a8]/30 border-t-[#00e5a8] rounded-full animate-spin" />
           </div>
-
-          {/* Total Claims */}
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">
-              Extracted Claims
-            </div>
-            <div className="text-2xl font-bold text-cyan-400">{totalClaims}</div>
-            <div className="text-[10px] text-slate-400 mt-1">From PRDs & reports</div>
-          </div>
-
-          {/* Verified Claims */}
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="text-[11px] font-mono text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-              <CheckCircle2 className="w-3 h-3" />
-              Verified
-            </div>
-            <div className="text-2xl font-bold text-emerald-400">{totalVerified}</div>
-            <div className="text-[10px] text-slate-400 mt-1">{verificationRate}% pass coverage</div>
-          </div>
-
-          {/* Contradicted Claims */}
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="text-[11px] font-mono text-rose-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-              <XCircle className="w-3 h-3" />
-              Contradicted
-            </div>
-            <div className="text-2xl font-bold text-rose-400">{totalContradicted}</div>
-            <div className="text-[10px] text-slate-400 mt-1">Disproved by tests</div>
-          </div>
-
-          {/* Unsupported Claims */}
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="text-[11px] font-mono text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-              <AlertTriangle className="w-3 h-3" />
-              Unsupported
-            </div>
-            <div className="text-2xl font-bold text-amber-400">{totalUnsupported}</div>
-            <div className="text-[10px] text-slate-400 mt-1">Missing proof</div>
-          </div>
-
-          {/* Critical Issues */}
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="text-[11px] font-mono text-rose-400 uppercase tracking-wider mb-1">
-              Critical Defects
-            </div>
-            <div className="text-2xl font-bold text-rose-400">{totalCritical}</div>
-            <div className="text-[10px] text-slate-400 mt-1">Blocking release gate</div>
-          </div>
-        </div>
-
-        {/* Verification Status Distribution Progress Bar */}
-        <div className="p-6 rounded-2xl glass-panel space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-white tracking-wide">
-              GLOBAL PORTFOLIO VERIFICATION DISTRIBUTION
-            </h2>
-            <span className="text-xs font-mono text-slate-400">
-              {totalClaims} Total Assessed Claims
-            </span>
-          </div>
-
-          {totalClaims > 0 ? (
-            <div className="space-y-3">
-              <div className="w-full h-3 rounded-full bg-slate-800 overflow-hidden flex">
-                <div
-                  style={{ width: `${(totalVerified / totalClaims) * 100}%` }}
-                  className="bg-emerald-500 h-full transition-all"
-                  title={`Verified: ${totalVerified}`}
-                />
-                <div
-                  style={{ width: `${(totalContradicted / totalClaims) * 100}%` }}
-                  className="bg-rose-500 h-full transition-all"
-                  title={`Contradicted: ${totalContradicted}`}
-                />
-                <div
-                  style={{ width: `${(totalUnsupported / totalClaims) * 100}%` }}
-                  className="bg-amber-500 h-full transition-all"
-                  title={`Unsupported: ${totalUnsupported}`}
-                />
+        ) : (
+          <>
+            {/* Metrics Row — 6 cards */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-8">
+              {/* Total Projects */}
+              <div className="glass-card rounded-2xl p-5 border border-white/[0.06] hover:border-white/10 transition-all">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-2">
+                  Projects
+                </div>
+                <div className="text-3xl font-black text-white">{totalProjects}</div>
+                <div className="text-xs text-slate-500 mt-1">Active targets</div>
               </div>
 
-              <div className="flex items-center gap-6 text-xs text-slate-400 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-sm bg-emerald-500" />
-                  <span>Verified Claims ({totalVerified})</span>
+              {/* Extracted Claims */}
+              <div className="glass-card rounded-2xl p-5 border border-white/[0.06] hover:border-white/10 transition-all">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-2">
+                  Claims
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-sm bg-rose-500" />
-                  <span>Contradicted by Tests ({totalContradicted})</span>
+                <div className="text-3xl font-black text-[#36cfff]">{totalClaims}</div>
+                <div className="text-xs text-slate-500 mt-1">Extracted total</div>
+              </div>
+
+              {/* Verified */}
+              <div className="glass-card rounded-2xl p-5 border border-white/[0.06] hover:border-white/10 transition-all">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-2">
+                  Verified
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-sm bg-amber-500" />
-                  <span>Missing Evidence ({totalUnsupported})</span>
+                <div className="text-3xl font-black text-[#00e5a8]">{totalVerified}</div>
+                <div className="text-xs text-slate-500 mt-1">{verificationRate}% coverage</div>
+              </div>
+
+              {/* Contradicted */}
+              <div className="glass-card rounded-2xl p-5 border border-white/[0.06] hover:border-white/10 transition-all">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-2">
+                  Contradicted
                 </div>
+                <div className="text-3xl font-black text-[#ff5263]">{totalContradicted}</div>
+                <div className="text-xs text-slate-500 mt-1">Disproved by tests</div>
+              </div>
+
+              {/* Unsupported */}
+              <div className="glass-card rounded-2xl p-5 border border-white/[0.06] hover:border-white/10 transition-all">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-2">
+                  Unsupported
+                </div>
+                <div className="text-3xl font-black text-[#ffb547]">{totalUnsupported}</div>
+                <div className="text-xs text-slate-500 mt-1">Missing proof</div>
+              </div>
+
+              {/* Critical */}
+              <div className="glass-card rounded-2xl p-5 border border-white/[0.06] hover:border-white/10 transition-all">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-2">
+                  Critical
+                </div>
+                <div className="text-3xl font-black text-[#ff5263]">{totalCritical}</div>
+                <div className="text-xs text-slate-500 mt-1">Blocking release</div>
               </div>
             </div>
-          ) : (
-            <p className="text-xs text-slate-400">No claims extracted yet.</p>
-          )}
-        </div>
 
-        {/* Projects Explorer */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-white">Active Audit Projects</h2>
-            <span className="text-xs text-slate-400 font-mono">
-              Displaying {projects.length} project(s)
-            </span>
-          </div>
+            {/* Verification Distribution */}
+            <div className="glass-panel rounded-2xl p-6 mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs font-mono uppercase tracking-widest text-slate-400">
+                  Verification Distribution
+                </span>
+                <span className="text-xs font-mono text-slate-500">
+                  {totalClaims} total claims
+                </span>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {projects.map((p) => (
-              <div
-                key={p.id}
-                className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div>
-                      <h3 className="text-base font-bold text-white hover:text-emerald-400 transition-colors">
-                        <Link href={`/projects/${p.id}`}>{p.name}</Link>
-                      </h3>
-                      {p.repositoryUrl && (
-                        <div className="text-xs font-mono text-slate-500 truncate max-w-sm">
-                          {p.repositoryUrl}
-                        </div>
-                      )}
-                    </div>
-                    <StatusBadge status={p.status} size="sm" />
+              {totalClaims > 0 ? (
+                <>
+                  <div className="h-2 rounded-full overflow-hidden bg-white/5 flex">
+                    <div
+                      style={{ width: `${(totalVerified / totalClaims) * 100}%` }}
+                      className="bg-[#00e5a8] h-full transition-all"
+                      title={`Verified: ${totalVerified}`}
+                    />
+                    <div
+                      style={{ width: `${(totalContradicted / totalClaims) * 100}%` }}
+                      className="bg-[#ff5263] h-full transition-all"
+                      title={`Contradicted: ${totalContradicted}`}
+                    />
+                    <div
+                      style={{ width: `${(totalUnsupported / totalClaims) * 100}%` }}
+                      className="bg-[#ffb547] h-full transition-all"
+                      title={`Unsupported: ${totalUnsupported}`}
+                    />
                   </div>
 
-                  <p className="text-xs text-slate-400 line-clamp-2 mb-4">
-                    {p.description || 'No description provided.'}
-                  </p>
-
-                  <div className="grid grid-cols-3 gap-2 p-3 rounded-lg bg-slate-950/60 border border-slate-800/80 mb-4 text-center">
-                    <div>
-                      <div className="text-[10px] text-slate-500 uppercase font-mono">Claims</div>
-                      <div className="text-sm font-bold text-white">{p.stats?.totalClaims || 0}</div>
+                  <div className="flex items-center gap-6 mt-4 text-xs text-slate-400 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-sm bg-[#00e5a8]" />
+                      <span>Verified ({totalVerified})</span>
                     </div>
-                    <div>
-                      <div className="text-[10px] text-slate-500 uppercase font-mono">Coverage</div>
-                      <div className="text-sm font-bold text-emerald-400">
-                        {p.stats?.coveragePct || 0}%
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-sm bg-[#ff5263]" />
+                      <span>Contradicted ({totalContradicted})</span>
                     </div>
-                    <div>
-                      <div className="text-[10px] text-slate-500 uppercase font-mono">Critical</div>
-                      <div className="text-sm font-bold text-rose-400">
-                        {p.stats?.criticalIssues || 0}
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-sm bg-[#ffb547]" />
+                      <span>Unsupported ({totalUnsupported})</span>
                     </div>
                   </div>
-                </div>
+                </>
+              ) : (
+                <p className="text-xs text-slate-500">No claims extracted yet.</p>
+              )}
+            </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-slate-800/80 text-xs">
-                  <span className="text-slate-500 font-mono text-[11px]">
-                    Target: {p.targetUrl || 'N/A'}
+            {/* Projects Grid */}
+            <div className="mt-8">
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-sm font-mono uppercase tracking-widest text-slate-400">
+                    Active Audit Targets
+                  </h2>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-400 font-mono">
+                    {projects.length}
                   </span>
-                  <Link
-                    href={`/projects/${p.id}`}
-                    className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-medium"
-                  >
-                    <span>Inspect Audit</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                {projects.map((p) => (
+                  <div
+                    key={p.id}
+                    className="glass-card rounded-2xl p-6 border border-white/[0.06] hover:border-[#00e5a8]/20 transition-all cursor-pointer group"
+                  >
+                    {/* Top: name + badge */}
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="font-bold text-white group-hover:text-[#00e5a8] transition-colors text-base leading-tight">
+                        {p.name}
+                      </h3>
+                      <StatusBadge status={p.status} size="sm" />
+                    </div>
+
+                    {/* Repo URL */}
+                    {p.repositoryUrl && (
+                      <div className="font-mono text-slate-600 text-xs truncate mt-1">
+                        {p.repositoryUrl}
+                      </div>
+                    )}
+
+                    {/* Description */}
+                    <p className="text-xs text-slate-500 line-clamp-2 mt-2 mb-4">
+                      {p.description || 'No description provided.'}
+                    </p>
+
+                    {/* Stats strip */}
+                    <div className="flex items-center divide-x divide-white/[0.06] border border-white/[0.06] rounded-xl overflow-hidden mb-4">
+                      <div className="flex-1 px-4 py-2.5 text-center">
+                        <div className="text-[9px] font-mono uppercase tracking-widest text-slate-500">Claims</div>
+                        <div className="text-sm font-black font-mono text-white mt-0.5">{p.stats?.totalClaims || 0}</div>
+                      </div>
+                      <div className="flex-1 px-4 py-2.5 text-center">
+                        <div className="text-[9px] font-mono uppercase tracking-widest text-slate-500">Coverage</div>
+                        <div className="text-sm font-black font-mono text-[#00e5a8] mt-0.5">{p.stats?.coveragePct || 0}%</div>
+                      </div>
+                      <div className="flex-1 px-4 py-2.5 text-center">
+                        <div className="text-[9px] font-mono uppercase tracking-widest text-slate-500">Critical</div>
+                        <div className="text-sm font-black font-mono text-[#ff5263] mt-0.5">{p.stats?.criticalIssues || 0}</div>
+                      </div>
+                    </div>
+
+                    {/* Bottom */}
+                    <div className="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs">
+                      <span className="text-slate-600 font-mono text-[11px] truncate max-w-[55%]">
+                        Target: {p.targetUrl || 'N/A'}
+                      </span>
+                      <Link
+                        href={`/projects/${p.id}`}
+                        className="text-[#00e5a8] font-semibold hover:opacity-80 transition-opacity"
+                      >
+                        Inspect Audit →
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </main>
     </div>
   );

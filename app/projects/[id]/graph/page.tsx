@@ -14,6 +14,8 @@ import {
   PlayCircle,
   HelpCircle,
   Activity,
+  ArrowRight,
+  ShieldAlert,
 } from 'lucide-react';
 
 export default function EvidenceGraphPage({ params }: { params: Promise<{ id: string }> }) {
@@ -46,7 +48,6 @@ export default function EvidenceGraphPage({ params }: { params: Promise<{ id: st
   // Compute what-if affected downstream nodes
   const isSimulatedFailing = (nodeId: string) => {
     if (nodeId === whatIfNode) return true;
-    // Downstream dependents: if node-pay fails, node-test-pay and transactions are affected
     if (whatIfNode === 'node-pay' && (nodeId === 'node-test-pay' || nodeId === 'node-db')) {
       return true;
     }
@@ -57,7 +58,7 @@ export default function EvidenceGraphPage({ params }: { params: Promise<{ id: st
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#070B14]">
+    <div className="min-h-screen flex flex-col bg-[#050810]">
       <Navbar />
       {project && <ProjectHeader project={project} />}
 
@@ -67,9 +68,12 @@ export default function EvidenceGraphPage({ params }: { params: Promise<{ id: st
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-extrabold text-white flex items-center gap-2.5">
-                <GitBranch className="w-6 h-6 text-emerald-400" />
-                <span>Project Digital Twin & Evidence Graph</span>
+              <div className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-slate-500 uppercase mb-1">
+                <GitBranch className="w-3.5 h-3.5 text-[#8667ff]" />
+                <span>Topology Intelligence</span>
+              </div>
+              <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+                <span>EVIDENCE DEPENDENCY GRAPH</span>
               </h1>
               <p className="text-xs text-slate-400 mt-1">
                 Structural dependency mapping between pages, API endpoints, tables, and test cases.
@@ -78,18 +82,18 @@ export default function EvidenceGraphPage({ params }: { params: Promise<{ id: st
           </div>
 
           {/* What-If Simulation Controller */}
-          <div className="p-4 rounded-xl glass-panel border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
-              <Activity className="w-4 h-4" />
-              <span>&ldquo;What-If&rdquo; Failure Cascade Simulation:</span>
+          <div className="p-5 rounded-2xl glass-panel border border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-2.5 text-xs font-mono text-[#36cfff]">
+              <Activity className="w-4 h-4 animate-pulse" />
+              <span className="font-semibold">&ldquo;What-If&rdquo; Failure Cascade Simulation:</span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-400">Simulate Failure on:</span>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-slate-400 font-mono">Inject Fault Into:</span>
               <select
                 value={whatIfNode}
                 onChange={(e) => setWhatIfNode(e.target.value)}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white font-mono"
+                className="px-3.5 py-1.5 rounded-xl bg-black/50 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#00e5a8]"
               >
                 <option value="node-pay">Payment Engine (API Service)</option>
                 <option value="node-auth">Auth Controller (API)</option>
@@ -106,15 +110,16 @@ export default function EvidenceGraphPage({ params }: { params: Promise<{ id: st
               return (
                 <div
                   key={node.id}
-                  className={`p-5 rounded-2xl border transition-all ${
+                  onClick={() => setWhatIfNode(node.id)}
+                  className={`p-5 rounded-2xl border transition-all cursor-pointer ${
                     failing
-                      ? 'bg-rose-950/20 border-rose-500/40 shadow-lg shadow-rose-950/30'
-                      : 'bg-slate-900/60 border-slate-800'
+                      ? 'bg-[#ff5263]/10 border-[#ff5263]/40 shadow-lg shadow-[#ff5263]/10'
+                      : 'glass-card border-white/[0.06] hover:border-white/20'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className={`p-2 rounded-lg ${failing ? 'bg-rose-500/20 text-rose-400' : 'bg-slate-800 text-slate-300'}`}>
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2.5 rounded-xl ${failing ? 'bg-[#ff5263]/20 text-[#ff5263]' : 'bg-white/5 text-[#00e5a8]'}`}>
                         <Icon className="w-4 h-4" />
                       </div>
                       <div>
@@ -124,19 +129,22 @@ export default function EvidenceGraphPage({ params }: { params: Promise<{ id: st
                     </div>
 
                     <span
-                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
-                        failing ? 'bg-rose-950 text-rose-400 border border-rose-500/30' : 'bg-emerald-950 text-emerald-400'
+                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+                        failing
+                          ? 'bg-[#ff5263]/20 text-[#ff5263] border-[#ff5263]/30'
+                          : 'bg-[#00e5a8]/10 text-[#00e5a8] border-[#00e5a8]/20'
                       }`}
                     >
-                      {failing ? 'IMPACTED' : 'HEALTHY'}
+                      {failing ? 'CASCADE FAILURE' : 'HEALTHY'}
                     </span>
                   </div>
 
                   <div className="text-[11px] font-mono text-slate-400 space-y-1">
-                    <div>Node ID: {node.id}</div>
+                    <div>Node ID: <span className="text-slate-300">{node.id}</span></div>
                     {failing && (
-                      <div className="text-rose-400 font-semibold">
-                        ⚠ In blast radius of {whatIfNode} failure
+                      <div className="text-[#ff5263] font-semibold flex items-center gap-1.5 pt-1">
+                        <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                        <span>In blast radius of {whatIfNode} failure</span>
                       </div>
                     )}
                   </div>
@@ -146,19 +154,22 @@ export default function EvidenceGraphPage({ params }: { params: Promise<{ id: st
           </div>
 
           {/* Dependency Connections Matrix */}
-          <div className="rounded-2xl glass-panel border border-slate-800 p-6 space-y-3">
-            <h3 className="text-sm font-bold text-white uppercase font-mono">
-              Structural Dependency Links
+          <div className="rounded-2xl glass-panel border border-white/[0.06] p-6 space-y-3">
+            <h3 className="text-xs font-bold text-white uppercase font-mono tracking-wider flex items-center gap-2">
+              <Layers className="w-4 h-4 text-[#36cfff]" />
+              <span>Structural Dependency Links</span>
             </h3>
             <div className="space-y-2">
               {edges.map((e, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-between p-3 rounded-lg bg-slate-950/60 border border-slate-800/80 text-xs font-mono"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/[0.04] text-xs font-mono"
                 >
-                  <span className="text-cyan-400">{e.source}</span>
-                  <span className="text-slate-500 uppercase">──[{e.relation}]──▶</span>
-                  <span className="text-emerald-400">{e.target}</span>
+                  <span className="text-[#36cfff] font-medium">{e.source}</span>
+                  <span className="text-slate-500 uppercase tracking-widest text-[10px] px-2 py-0.5 rounded bg-white/5">
+                    ── [{e.relation}] ──▶
+                  </span>
+                  <span className="text-[#00e5a8] font-medium">{e.target}</span>
                 </div>
               ))}
             </div>

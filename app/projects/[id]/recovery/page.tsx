@@ -16,6 +16,7 @@ import {
   GitCommit,
   Check,
   FileCode,
+  Sparkles,
 } from 'lucide-react';
 
 export default function RecoveryStudioPage({ params }: { params: Promise<{ id: string }> }) {
@@ -104,7 +105,7 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#070B14]">
+    <div className="min-h-screen flex flex-col bg-[#050810]">
       <Navbar />
       {project && <ProjectHeader project={project} onAuditCompleted={loadData} />}
 
@@ -114,9 +115,15 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-extrabold text-white flex items-center gap-2.5">
-                <Wrench className="w-6 h-6 text-emerald-400" />
-                <span>Autonomous Recovery Studio</span>
+              <div className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-slate-500 uppercase mb-1">
+                <Wrench className="w-3.5 h-3.5 text-[#36cfff]" />
+                <span>Automated Remediation Engine</span>
+              </div>
+              <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+                <span>RECOVERY STUDIO</span>
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/5 text-slate-400 font-mono font-normal border border-white/10">
+                  {proposals.length} Proposals
+                </span>
               </h1>
               <p className="text-xs text-slate-400 mt-1">
                 Controlled, user-approved patch synthesis, isolated application, and automated regression retesting.
@@ -125,8 +132,8 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
           </div>
 
           {actionMessage && (
-            <div className="p-4 rounded-xl bg-slate-900 border border-emerald-500/40 text-emerald-300 font-mono text-xs flex items-center gap-2 animate-fade-in">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div className="p-4 rounded-2xl glass-panel border border-[#00e5a8]/40 text-[#00e5a8] font-mono text-xs flex items-center gap-2.5 animate-fade-in shadow-lg">
+              <CheckCircle2 className="w-4 h-4 text-[#00e5a8] shrink-0" />
               <span>{actionMessage}</span>
             </div>
           )}
@@ -145,14 +152,14 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
                   <div
                     key={p.id}
                     onClick={() => setSelectedProposal(p)}
-                    className={`p-4 rounded-xl cursor-pointer transition-all border ${
+                    className={`p-4 rounded-2xl cursor-pointer transition-all border ${
                       isSelected
-                        ? 'bg-slate-900 border-emerald-500/50 shadow-lg shadow-emerald-950/30'
-                        : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'
+                        ? 'glass-panel border-[#00e5a8]/40 shadow-lg shadow-[#00e5a8]/5'
+                        : 'glass-card border-white/[0.06] hover:border-white/20'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-mono text-cyan-400">{p.targetFile}</span>
+                      <span className="text-[10px] font-mono text-[#36cfff]">{p.targetFile}</span>
                       <StatusBadge status={p.status} size="sm" />
                     </div>
                     <h3 className="text-sm font-bold text-white mb-2">{p.title}</h3>
@@ -163,7 +170,7 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
 
               {/* Historical Attempts */}
               {attempts.length > 0 && (
-                <div className="pt-4 border-t border-slate-800">
+                <div className="pt-4 border-t border-white/[0.06]">
                   <div className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">
                     Verified Fix Attempts ({attempts.length})
                   </div>
@@ -171,10 +178,10 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
                     {attempts.map((a) => (
                       <div
                         key={a.id}
-                        className="p-3 rounded-lg bg-slate-950/60 border border-emerald-500/30 text-xs font-mono space-y-1"
+                        className="p-3 rounded-xl bg-black/40 border border-[#00e5a8]/30 text-xs font-mono space-y-1"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-emerald-400 font-bold">STATUS: {a.resultStatus.toUpperCase()}</span>
+                          <span className="text-[#00e5a8] font-bold">STATUS: {a.resultStatus.toUpperCase()}</span>
                           <span className="text-slate-500 text-[10px]">
                             {new Date(a.appliedAt).toLocaleTimeString()}
                           </span>
@@ -188,12 +195,12 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
             </div>
 
             {/* Right: Patch Diff Viewer & Approval Panel */}
-            <div className="lg:col-span-2 rounded-2xl glass-panel border border-slate-800 p-6 space-y-6">
+            <div className="lg:col-span-2 rounded-2xl glass-panel border border-white/[0.06] p-6 space-y-6">
               {selectedProposal ? (
                 <>
-                  <div className="flex items-start justify-between gap-4 pb-4 border-b border-slate-800">
+                  <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/[0.06]">
                     <div>
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-2 mb-1.5">
                         <StatusBadge status={selectedProposal.status} size="sm" />
                         <span className="text-xs font-mono text-slate-400">
                           Target: {selectedProposal.targetFile}
@@ -203,12 +210,12 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       {selectedProposal.status === 'applied' ? (
                         <button
                           onClick={handleRevert}
                           disabled={isProcessing}
-                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-semibold border border-amber-500/30 transition-colors"
+                          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl glass-panel border border-amber-500/30 text-amber-300 text-xs font-semibold hover:border-amber-500/60 transition-colors"
                         >
                           <RotateCcw className="w-3.5 h-3.5" />
                           <span>Revert Patch</span>
@@ -217,12 +224,12 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
                         <button
                           onClick={handleApprove}
                           disabled={isProcessing}
-                          className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-lg shadow-emerald-950/40 transition-all disabled:opacity-60"
+                          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00e5a8] to-[#36cfff] text-black font-bold text-xs shadow-lg hover:opacity-90 transition-opacity disabled:opacity-60"
                         >
                           {isProcessing ? (
-                            <RefreshCw className="w-4 h-4 animate-spin" />
+                            <RefreshCw className="w-4 h-4 animate-spin text-black" />
                           ) : (
-                            <Check className="w-4 h-4" />
+                            <Check className="w-4 h-4 text-black" />
                           )}
                           <span>Approve Patch & Retest</span>
                         </button>
@@ -242,27 +249,27 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
                   {/* Unified Diff Viewer */}
                   <div>
                     <h4 className="text-xs font-semibold uppercase text-slate-400 tracking-wider mb-2 flex items-center gap-2">
-                      <FileCode className="w-4 h-4 text-cyan-400" />
+                      <FileCode className="w-4 h-4 text-[#36cfff]" />
                       <span>Unified Patch Diff (Isolated Workspace)</span>
                     </h4>
-                    <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs overflow-x-auto leading-relaxed">
+                    <div className="p-4 rounded-xl bg-black/50 border border-white/[0.06] font-mono text-xs overflow-x-auto leading-relaxed">
                       {selectedProposal.patchDiff.split('\n').map((line: string, i: number) => {
                         if (line.startsWith('+')) {
                           return (
-                            <div key={i} className="text-emerald-400 bg-emerald-950/40 px-1 rounded">
+                            <div key={i} className="text-[#00e5a8] bg-[#00e5a8]/10 px-1.5 py-0.5 rounded my-0.5">
                               {line}
                             </div>
                           );
                         }
                         if (line.startsWith('-')) {
                           return (
-                            <div key={i} className="text-rose-400 bg-rose-950/40 px-1 rounded">
+                            <div key={i} className="text-[#ff5263] bg-[#ff5263]/10 px-1.5 py-0.5 rounded my-0.5">
                               {line}
                             </div>
                           );
                         }
                         return (
-                          <div key={i} className="text-slate-400">
+                          <div key={i} className="text-slate-400 py-0.5">
                             {line}
                           </div>
                         );
@@ -271,28 +278,28 @@ export default function RecoveryStudioPage({ params }: { params: Promise<{ id: s
                   </div>
 
                   {/* Before vs After Comparison Card */}
-                  <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
+                  <div className="p-5 rounded-2xl glass-card border border-white/[0.06] space-y-3">
                     <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
                       Empirical Before / After Verification Outcomes
                     </h4>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
-                      <div className="p-3 rounded-lg bg-rose-950/20 border border-rose-500/20">
-                        <div className="text-rose-400 font-bold mb-1">BEFORE PATCH (Default Fixture)</div>
+                      <div className="p-4 rounded-xl bg-[#ff5263]/10 border border-[#ff5263]/20">
+                        <div className="text-[#ff5263] font-bold mb-1">BEFORE PATCH (Default Fixture)</div>
                         <div className="text-slate-300 text-[11px]">
                           Destination: /fixture/broken-docs-404
                         </div>
-                        <div className="text-rose-400 text-[11px] font-semibold mt-1">
+                        <div className="text-[#ff5263] text-[11px] font-semibold mt-1">
                           Result: HTTP 404 Route Not Found
                         </div>
                       </div>
 
-                      <div className="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/20">
-                        <div className="text-emerald-400 font-bold mb-1">AFTER PATCH & RETEST</div>
+                      <div className="p-4 rounded-xl bg-[#00e5a8]/10 border border-[#00e5a8]/20">
+                        <div className="text-[#00e5a8] font-bold mb-1">AFTER PATCH & RETEST</div>
                         <div className="text-slate-300 text-[11px]">
                           Destination: /fixture/docs-valid
                         </div>
-                        <div className="text-emerald-400 text-[11px] font-semibold mt-1">
+                        <div className="text-[#00e5a8] text-[11px] font-semibold mt-1">
                           Result: HTTP 200 OK (Route Verified)
                         </div>
                       </div>

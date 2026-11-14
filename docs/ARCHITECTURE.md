@@ -75,3 +75,4 @@ The autonomous agent executes up to 8 bounded steps with strict Zod argument val
 6. **Automatic Retest**: The failing test is immediately re-executed against the patched target.
 7. **Empirical Certification**: If retest passes, claim status transitions from `CONTRADICTED` to `VERIFIED`.
 8. **Rollback Safety**: Auditor can revert the patch at any time with one click.
+

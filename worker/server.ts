@@ -442,3 +442,4 @@ server.listen(PORT, HOST, () => {
   console.log(`[PROOFCHAIN TEST WORKER] Running securely on http://${HOST}:${PORT}`);
   console.log(`[DEMO FIXTURE] Available at http://${HOST}:${PORT}/fixture`);
 });
+

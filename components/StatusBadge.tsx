@@ -12,37 +12,37 @@ export function StatusBadge({ status, size = 'md', className }: StatusBadgeProps
   const s = status.toLowerCase();
 
   const sizeClasses = {
-    sm: 'text-xs px-2 py-0.5 gap-1',
-    md: 'text-xs px-2.5 py-1 gap-1.5',
-    lg: 'text-sm px-3 py-1.5 gap-2',
+    sm: 'text-[10px] px-2 py-0.5 gap-1 font-mono font-bold',
+    md: 'text-xs px-2.5 py-1 gap-1.5 font-mono font-bold',
+    lg: 'text-sm px-3.5 py-1.5 gap-2 font-mono font-bold',
   }[size];
 
   if (s === 'verified' || s === 'healthy' || s === 'passed' || s === 'go' || s === 'applied' || s === 'resolved') {
     return (
       <span
         className={cn(
-          'inline-flex items-center font-medium rounded-full bg-emerald-950/70 text-emerald-400 border border-emerald-500/30',
+          'inline-flex items-center rounded-full bg-[#00e5a8]/10 text-[#00e5a8] border border-[#00e5a8]/30',
           sizeClasses,
           className
         )}
       >
-        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-        {status.toUpperCase()}
+        <CheckCircle2 className="w-3.5 h-3.5 text-[#00e5a8]" />
+        {status.toUpperCase().replace('_', ' ')}
       </span>
     );
   }
 
-  if (s === 'contradicted' || s === 'critical' || s === 'failed' || s === 'no-go') {
+  if (s === 'contradicted' || s === 'critical' || s === 'failed' || s === 'no-go' || s === 'no_go') {
     return (
       <span
         className={cn(
-          'inline-flex items-center font-medium rounded-full bg-rose-950/70 text-rose-400 border border-rose-500/30',
+          'inline-flex items-center rounded-full bg-[#ff5263]/10 text-[#ff5263] border border-[#ff5263]/30',
           sizeClasses,
           className
         )}
       >
-        <XCircle className="w-3.5 h-3.5 text-rose-400" />
-        {status.toUpperCase()}
+        <XCircle className="w-3.5 h-3.5 text-[#ff5263]" />
+        {status.toUpperCase().replace('_', ' ')}
       </span>
     );
   }
@@ -51,13 +51,13 @@ export function StatusBadge({ status, size = 'md', className }: StatusBadgeProps
     return (
       <span
         className={cn(
-          'inline-flex items-center font-medium rounded-full bg-amber-950/70 text-amber-400 border border-amber-500/30',
+          'inline-flex items-center rounded-full bg-[#ffb547]/10 text-[#ffb547] border border-[#ffb547]/30',
           sizeClasses,
           className
         )}
       >
-        <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-        {status.toUpperCase()}
+        <AlertTriangle className="w-3.5 h-3.5 text-[#ffb547]" />
+        {status.toUpperCase().replace('_', ' ')}
       </span>
     );
   }
@@ -65,13 +65,13 @@ export function StatusBadge({ status, size = 'md', className }: StatusBadgeProps
   return (
     <span
       className={cn(
-        'inline-flex items-center font-medium rounded-full bg-slate-800/80 text-slate-300 border border-slate-700/50',
+        'inline-flex items-center rounded-full bg-white/5 text-slate-300 border border-white/10',
         sizeClasses,
         className
       )}
     >
       <HelpCircle className="w-3.5 h-3.5 text-slate-400" />
-      {status.toUpperCase()}
+      {status.toUpperCase().replace('_', ' ')}
     </span>
   );
 }

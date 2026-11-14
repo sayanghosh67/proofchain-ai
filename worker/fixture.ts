@@ -28,3 +28,4 @@ export function applyPaymentPatch(): void {
 export function revertPaymentPatch(): void {
   fixtureState.paymentPort = 9042;
 }
+

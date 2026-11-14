@@ -14,6 +14,7 @@ import {
   Terminal,
   Plus,
   ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 import { formatBytes } from '@/lib/utils';
 
@@ -88,7 +89,7 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#070B14]">
+    <div className="min-h-screen flex flex-col bg-[#050810]">
       <Navbar />
       {project && <ProjectHeader project={project} onAuditCompleted={loadData} />}
 
@@ -98,9 +99,15 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-extrabold text-white flex items-center gap-2.5">
-                <Database className="w-6 h-6 text-emerald-400" />
-                <span>Evidence Vault & Provenance Index</span>
+              <div className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-slate-500 uppercase mb-1">
+                <Database className="w-3.5 h-3.5 text-[#00e5a8]" />
+                <span>Provenance Storage</span>
+              </div>
+              <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+                <span>EVIDENCE VAULT</span>
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/5 text-slate-400 font-mono font-normal border border-white/10">
+                  {evidence.length} Artifacts
+                </span>
               </h1>
               <p className="text-xs text-slate-400 mt-1">
                 Empirical logs, traces, screenshots, and test outputs supporting or disproving claims.
@@ -109,7 +116,7 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
 
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-md transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00e5a8] to-[#36cfff] text-black font-bold text-xs shadow-lg hover:opacity-90 transition-opacity"
             >
               <Plus className="w-4 h-4" />
               <span>Ingest Evidence Artifact</span>
@@ -117,7 +124,7 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
           </div>
 
           {/* Search & Filters */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 rounded-xl glass-panel">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 rounded-2xl glass-panel border border-white/[0.06]">
             <div className="relative w-full sm:w-80">
               <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
               <input
@@ -125,19 +132,19 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
                 placeholder="Search evidence contents..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
+                className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#00e5a8]/50"
               />
             </div>
 
-            <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto">
+            <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto">
               {['all', 'log', 'test_output', 'screenshot', 'source_file', 'manual_note'].map((t) => (
                 <button
                   key={t}
                   onClick={() => setFilterType(t)}
-                  className={`px-3 py-1 rounded-md text-xs font-mono uppercase tracking-wider transition-colors ${
+                  className={`px-3 py-1 rounded-lg text-xs font-mono uppercase tracking-wider transition-all ${
                     filterType === t
-                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                      : 'bg-slate-900/60 text-slate-400 hover:text-slate-200'
+                      ? 'bg-[#00e5a8]/10 text-[#00e5a8] border border-[#00e5a8]/30 font-semibold'
+                      : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
                   }`}
                 >
                   {t.replace('_', ' ')}
@@ -149,24 +156,27 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
           {/* Evidence Two-Pane Explorer */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* List */}
-            <div className="lg:col-span-1 rounded-2xl glass-panel border border-slate-800 overflow-hidden flex flex-col h-[600px]">
-              <div className="p-4 border-b border-slate-800 text-xs font-bold text-white uppercase font-mono">
-                Indexed Evidence Items ({filtered.length})
+            <div className="lg:col-span-1 rounded-2xl glass-panel border border-white/[0.06] overflow-hidden flex flex-col h-[600px]">
+              <div className="p-4 border-b border-white/[0.06] text-xs font-bold text-white uppercase font-mono tracking-wider flex items-center justify-between">
+                <span>Indexed Artifacts</span>
+                <span className="text-slate-500">{filtered.length} items</span>
               </div>
-              <div className="flex-1 overflow-y-auto divide-y divide-slate-800/80">
+              <div className="flex-1 overflow-y-auto divide-y divide-white/[0.04]">
                 {filtered.map((item) => {
                   const isSelected = selectedItem?.id === item.id;
                   return (
                     <div
                       key={item.id}
                       onClick={() => setSelectedItem(item)}
-                      className={`p-4 cursor-pointer transition-colors ${
-                        isSelected ? 'bg-emerald-500/10 border-l-2 border-emerald-400' : 'hover:bg-slate-900/40'
+                      className={`p-4 cursor-pointer transition-all ${
+                        isSelected
+                          ? 'bg-[#00e5a8]/[0.08] border-l-2 border-[#00e5a8]'
+                          : 'hover:bg-white/[0.03]'
                       }`}
                     >
                       <div className="flex items-center justify-between text-xs font-semibold text-white mb-1">
                         <span className="truncate max-w-[180px]">{item.originalName}</span>
-                        <span className="text-[10px] font-mono text-slate-400 uppercase">
+                        <span className="text-[10px] font-mono text-cyan-400 uppercase px-1.5 py-0.5 rounded bg-cyan-400/10">
                           {item.type}
                         </span>
                       </div>
@@ -183,25 +193,25 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
             </div>
 
             {/* Viewer Pane */}
-            <div className="lg:col-span-2 rounded-2xl glass-panel border border-slate-800 p-6 flex flex-col h-[600px] overflow-hidden">
+            <div className="lg:col-span-2 rounded-2xl glass-panel border border-white/[0.06] p-6 flex flex-col h-[600px] overflow-hidden">
               {selectedItem ? (
                 <>
-                  <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+                  <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-4">
                     <div>
                       <h2 className="text-base font-bold text-white flex items-center gap-2">
-                        <Terminal className="w-4 h-4 text-emerald-400" />
+                        <Terminal className="w-4 h-4 text-[#00e5a8]" />
                         <span>{selectedItem.originalName}</span>
                       </h2>
-                      <div className="text-xs text-slate-400 font-mono">
+                      <div className="text-xs text-slate-400 font-mono mt-0.5">
                         MIME: {selectedItem.mimeType} | Size: {formatBytes(selectedItem.sizeBytes)}
                       </div>
                     </div>
-                    <span className="px-2.5 py-1 rounded bg-slate-800 text-cyan-400 font-mono text-xs">
+                    <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-cyan-400 font-mono text-xs">
                       {selectedItem.type.toUpperCase()}
                     </span>
                   </div>
 
-                  <div className="flex-1 overflow-y-auto bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs text-slate-300 whitespace-pre-wrap leading-relaxed">
+                  <div className="flex-1 overflow-y-auto bg-black/40 p-4 rounded-xl border border-white/[0.06] font-mono text-xs text-slate-300 whitespace-pre-wrap leading-relaxed">
                     {selectedItem.contentText || (
                       <div className="p-8 text-center text-slate-500">
                         Binary media evidence item: {selectedItem.fileUrl || selectedItem.filename}
@@ -210,8 +220,9 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
                   </div>
                 </>
               ) : (
-                <div className="flex-1 flex items-center justify-center text-slate-500 text-xs">
-                  Select an evidence artifact from the list to inspect provenance.
+                <div className="flex-1 flex flex-col items-center justify-center text-slate-500 text-xs gap-2">
+                  <Database className="w-8 h-8 text-slate-600" />
+                  <span>Select an evidence artifact from the list to inspect provenance.</span>
                 </div>
               )}
             </div>
@@ -221,9 +232,12 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
 
       {/* Add Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-lg p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-base font-bold text-white mb-4">Ingest Evidence Artifact</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+          <div className="w-full max-w-lg p-6 rounded-2xl glass-panel-elevated border border-white/10 shadow-2xl">
+            <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#00e5a8]" />
+              <span>Ingest Evidence Artifact</span>
+            </h3>
             <form onSubmit={handleAddEvidence} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-400 mb-1">Artifact Name</label>
@@ -233,7 +247,7 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="e.g. gateway_error.log"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                  className="w-full px-3 py-2 rounded-xl bg-black/50 border border-white/10 text-xs text-white focus:outline-none focus:border-[#00e5a8]"
                 />
               </div>
 
@@ -242,7 +256,7 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
                 <select
                   value={newType}
                   onChange={(e) => setNewType(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                  className="w-full px-3 py-2 rounded-xl bg-black/50 border border-white/10 text-xs text-white focus:outline-none focus:border-[#00e5a8]"
                 >
                   <option value="log">Log</option>
                   <option value="test_output">Test Output Trace</option>
@@ -258,7 +272,7 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
                   placeholder="Paste raw log lines, error stack trace, or test JSON..."
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white font-mono"
+                  className="w-full px-3 py-2 rounded-xl bg-black/50 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#00e5a8]"
                 />
               </div>
 
@@ -266,13 +280,13 @@ export default function EvidenceVaultPage({ params }: { params: Promise<{ id: st
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 rounded-lg text-xs text-slate-400 hover:text-white"
+                  className="px-4 py-2 rounded-xl text-xs text-slate-400 hover:text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold"
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00e5a8] to-[#36cfff] text-black text-xs font-bold shadow-lg hover:opacity-90 transition-opacity"
                 >
                   Ingest & Index
                 </button>

@@ -281,3 +281,4 @@ CREATE INDEX IF NOT EXISTS idx_test_runs_project ON test_runs(project_id);
 CREATE INDEX IF NOT EXISTS idx_findings_project ON findings(project_id);
 CREATE INDEX IF NOT EXISTS idx_fix_proposals_finding ON fix_proposals(finding_id);
 CREATE INDEX IF NOT EXISTS idx_remediation_tasks_project ON remediation_tasks(project_id);
+

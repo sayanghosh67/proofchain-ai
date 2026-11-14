@@ -965,3 +965,4 @@ export function getDb(): DatabaseStore {
   }
   return global.__proofchainDb;
 }
+

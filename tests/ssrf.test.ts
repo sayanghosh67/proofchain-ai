@@ -41,3 +41,4 @@ describe('SSRF & Network Boundary Protection', () => {
     expect(res.allowed).toBe(true);
   });
 });
+

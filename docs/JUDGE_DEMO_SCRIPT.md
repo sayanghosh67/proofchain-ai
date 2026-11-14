@@ -91,3 +91,4 @@ Prefer running the entire sequence from your terminal? Run:
 npm run demo
 ```
 All 5 stages execute with real network checks, patch dispatch, and automated retesting.
+

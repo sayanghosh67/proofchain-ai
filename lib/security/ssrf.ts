@@ -136,3 +136,4 @@ export async function validateTargetUrl(
 
   return { allowed: true, sanitizedUrl: parsed.toString() };
 }
+

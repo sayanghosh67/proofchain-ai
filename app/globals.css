@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #070b14;
-  --secondary: #0d1424;
-  --card: #111b2d;
+  --background: #050810;
+  --secondary: #0b1120;
+  --elevated: #10192b;
   --card-border: #1e293b;
   --foreground: #f8fafc;
   --muted: #94a3b8;
-  --emerald-accent: #10b981;
-  --cyan-accent: #22d3ee;
-  --violet-accent: #8b5cf6;
-  --warning: #f59e0b;
-  --critical: #ef4444;
+  --primary-accent: #00e5a8;
+  --secondary-accent: #36cfff;
+  --tertiary-accent: #8667ff;
+  --critical: #ff5263;
+  --warning: #ffb547;
+  --success: #18d99b;
 }
 
 body {
@@ -20,43 +21,135 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
+  letter-spacing: -0.01em;
 }
 
-/* Subtle futuristic grid pattern */
-.bg-grid-pattern {
-  background-size: 40px 40px;
+/* Fluid Typography */
+.text-hero {
+  font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.text-section-title {
+  font-size: clamp(1.75rem, 3.5vw + 0.5rem, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+/* Subtle futuristic grid pattern with radial vignette */
+.bg-grid-cyber {
+  background-size: 48px 48px;
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
+.bg-radial-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 229, 168, 0.12) 0%, rgba(54, 207, 255, 0.05) 30%, transparent 70%);
+}
+
+.bg-radial-ambient {
+  background: radial-gradient(ellipse at 50% 50%, rgba(16, 25, 43, 0.8) 0%, #050810 100%);
+}
+
+/* Premium Glass Surfaces */
 .glass-panel {
-  background: rgba(17, 27, 45, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(16, 25, 43, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.glow-emerald {
-  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+.glass-panel-elevated {
+  background: rgba(16, 25, 43, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
 }
 
-.glow-cyan {
-  box-shadow: 0 0 25px -5px rgba(34, 211, 238, 0.25);
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-/* Custom scrollbars */
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  border-color: rgba(0, 229, 168, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(0, 229, 168, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Gradient text helpers */
+.text-gradient-emerald-cyan {
+  background: linear-gradient(135deg, #00e5a8 0%, #36cfff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan-violet {
+  background: linear-gradient(135deg, #36cfff 0%, #8667ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-emerald-subtle {
+  box-shadow: 0 0 30px -5px rgba(0, 229, 168, 0.25);
+}
+
+.glow-cyan-subtle {
+  box-shadow: 0 0 30px -5px rgba(54, 207, 255, 0.25);
+}
+
+/* Laser scan animation */
+@keyframes laser-sweep {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(200%); opacity: 0; }
+}
+
+.animate-laser {
+  animation: laser-sweep 3s ease-in-out infinite;
+}
+
+/* Pulse energy line */
+@keyframes energy-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.animate-energy {
+  background: linear-gradient(90deg, #00e5a8, #36cfff, #8667ff, #00e5a8);
+  background-size: 200% 100%;
+  animation: energy-flow 4s linear infinite;
+}
+
+/* Custom refined scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #070b14;
+  background: #050810;
 }
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
-  border-radius: 3px;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #334155;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
